@@ -1,0 +1,81 @@
+﻿html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin-bottom: 40px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    min-height: 40px;
+    min-width: 100%;
+    color: #fff;
+    text-align: center;
+}
+
+.dropdown-menu{
+    min-width: 120px;
+}
+
+.card{
+    box-shadow: 0 1px 2px #333;
+}
+
+.titulo-elegante {
+    font-family: 'DM Serif Display', serif;
+}
+
+.bannerConsultas {
+    background: #3a7bd5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3a6073, #3a7bd5); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3a6073, #3a7bd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerCompras {
+    background: #1D4350; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #A43931, #1D4350); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #A43931, #1D4350); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerVentas {
+    background: #0052D4; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6FB1FC, #4364F7, #0052D4); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6FB1FC, #4364F7, #0052D4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerUsuarios {
+    background: #8E0E00; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerInsumos {
+    background: #085078; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #85D8CE, #085078); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #85D8CE, #085078); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerFacturas {
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bannerProveedores {
+    background: #525252; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3d72b4, #525252); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3d72b4, #525252); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.navbar-brand img:hover {
+    box-shadow: 0 0 4px 4px #3a7bd5, 0 0 4px 4px #0042f7
+}
+
+.nav-link:hover {
+    color: #fff !important;
+}
+
+

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Consultas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- HEADER -->
+<header>
+    <div class="jumbotron text-center p-4 bannerConsultas text-white rounded-0">
+        <h1 class="display-2 titulo-elegante">@ViewBag.Title</h1>
+        <hr class="border border-info">
+    </div>
+</header>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Opciones De Consulta:</h5>
+            <nav class="nav">
+                <button class="btn btn-success">Realizadas</button>
+                <button class="btn btn-warning">Pendientes</button>
+                <button class="btn btn-danger">Canceladas</button>
+            </nav>
+        </div>
+        <div class="col-lg-12 mt-2">
+            <table class="table table-striped display" cellspacing="0" width="100%" id="tbconsultas">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" colspan="1">userId</th>
+                        <th scope="col" colspan="1">title</th>
+                        <th scope="col" colspan="1">body</th>
+                        <th scope="col" colspan="1">Accion</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/js/Admin/consultas.js"></script>
+}
+
+
+

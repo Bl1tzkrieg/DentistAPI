@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- HEADER -->
+<header class="p-0">
+    <div class="jumbotron text-center p-4">
+        <h1 class="display-5">Bienvenido, @ViewBag.Title!</h1>
+        <h4>
+            Resumen disponible del dia @DateTime.Now
+        </h4>
+        <hr class="border border-info">
+    </div>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <div class="card p-3 m-3 card-consultas">
+                <div class="card-body">
+                    <img src="https://centauro.com.mx/wp-content/uploads/9-preguntas-frecuentes-sobre-ir-al-dentista.jpg" alt="..." class="img-thumbnail">
+                    <h5 class="card-title">Consultas</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="@Url.Action("Consultas","Admin")" class="btn btn-primary">Ver Consultas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="card p-3 m-3">
+                <div class="card-body">
+                    <img src="https://media.licdn.com/dms/image/C5612AQHSQ0p8iw_Xsg/article-cover_image-shrink_600_2000/0/1520088234699?e=2147483647&v=beta&t=WwA1sprJFxY5vXAv9Fp-cYVn8FhYKQugTubdZJpjOJ4" width="600" height="315" alt="..." class="img-thumbnail">
+                    <h5 class="card-title">Ventas</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="@Url.Action("Ventas","Admin")" class="btn btn-primary">Ver Ventas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="card p-3 m-3">
+                <div class="card-body">
+                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5T4UWEZSCFGPHB3OSVUGOE3N6A.jpg" width="600" height="315" alt="..." class="img-thumbnail">
+                    <h5 class="card-title">Compras</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="@Url.Action("Compras","Admin")" class="btn btn-primary">Ver Compras</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="card p-3 m-3">
+                <div class="card-body">
+                    <img src="https://asociaciondemarketing.com/wp-content/uploads/2017/12/Usuarios-Redes-Sociales.jpg" width="600" height="315" alt="..." class="img-thumbnail">
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="@Url.Action("Usuarios","Admin")" class="btn btn-primary">Ver Usuarios</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="bg-dark p-3">
+    <p>
+        Frontend: Jesús Morales
+        <a href="#">
+            <span class="material-symbols-outlined">
+                home_pin
+            </span>
+        </a>
+        Backend: Douglas Worm
+        <a href="#">
+            <span class="material-symbols-outlined">
+                home_pin
+            </span>
+        </a>
+        DataBase: Luís Delgado <a href="#">
+            <span class="material-symbols-outlined">
+                home_pin
+            </span>
+        </a>
+    </p>
+</footer>
