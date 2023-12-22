@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+
+    <!-- HEADER -->
+    <header class="m-3 rounded-2 text-white shadow" style="background: linear-gradient(to left, #003366 0%, #0099ff 100%);">
+        <div class="jumbotron text-center p-5">
+            <h1 class="display-5">Bienvenido, @ViewBag.Title!</h1>
+            <h4>
+                Resumen disponible del dia @DateTime.Now.ToString("D")
+            </h4>
+            <hr class="border border-info" style="background-color:#222">
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col col-md-6 p-4">
+                <div class="card shadow">
+                    <img src="https://centauro.com.mx/wp-content/uploads/9-preguntas-frecuentes-sobre-ir-al-dentista.jpg" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Consultas</h5>
+                        <p class="card-text">Resumen De todas las cunsultas pendientes, completadas, Canceladas</p>
+                        <a href="@Url.Action("Consultas","Admin")" class="btn btn-outline-primary">Ver Consultas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6 p-4">
+                <div class="card shadow">
+                    <img src="https://media.licdn.com/dms/image/C5612AQHSQ0p8iw_Xsg/article-cover_image-shrink_600_2000/0/1520088234699?e=2147483647&v=beta&t=WwA1sprJFxY5vXAv9Fp-cYVn8FhYKQugTubdZJpjOJ4" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Ventas</h5>
+                        <p class="card-text">Resumen de todas las ventas correspondientes a servicios de consultas, serivios entre otros.</p>
+                        <a href="@Url.Action("Ventas","Admin")" class="btn btn-outline-success">Ver Ventas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6 p-4">
+                <div class="card shadow">
+                    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5T4UWEZSCFGPHB3OSVUGOE3N6A.jpg" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Compras</h5>
+                        <p class="card-text">Resumen de compras relacionadss con insumos, equipos, servicios, entre otros.</p>
+                        <a href="@Url.Action("Compras","Admin")" class="btn btn-outline-danger">Ver Compras</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6 p-4">
+                <div class="card shadow">
+                    <img src="https://asociaciondemarketing.com/wp-content/uploads/2017/12/Usuarios-Redes-Sociales.jpg" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Usuarios</h5>
+                        <p class="card-text">Gestion de Usuarios relacionado con el acceso, roles, información</p>
+                        <a href="@Url.Action("Usuarios","Admin")" class="btn btn-outline-info">Ver Usuarios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

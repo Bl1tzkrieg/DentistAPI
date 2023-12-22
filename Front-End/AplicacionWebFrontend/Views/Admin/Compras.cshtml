@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+
+    <header class="m-3 rounded-2 text-white shadow" style="background: linear-gradient(to left, #003366 0%, #0099ff 100%);">
+        <div class="jumbotron text-center p-4">
+            <h1 class="display-5">@ViewBag.Title!</h1>
+            <hr class="border border-info" style="background-color:#222">
+        </div>
+    </header>
+
+    <div class="m-3 rounded-2 shadow p-3">
+        <table class="table table-striped responsive" cellspacing="0" style="width:100%" id="tbcompras">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col" colspan="1">userId</th>
+                    <th scope="col" colspan="1">title</th>
+                    <th scope="col" colspan="1">body</th>
+                    <th scope="col" colspan="1">Ver</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</main>
+
+@section scripts{
+    <script src="~/Scripts/js/methodsDatatables.js"></script>
+    <script src="~/Scripts/js/Admin/compras.js"></script>
+}
+

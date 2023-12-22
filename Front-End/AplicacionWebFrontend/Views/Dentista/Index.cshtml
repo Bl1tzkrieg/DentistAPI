@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Dentista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+
+    <!-- HEADER -->
+    <header class="m-3 rounded-2 text-white shadow" style="background: linear-gradient(to right, #009999 0%, #00ccff 100%);">
+        <div class="jumbotron text-center p-4">
+            <h1 class="display-5">Bienvenido, @ViewBag.Title!</h1>
+            <h4>
+                Resumen disponible del dia @DateTime.Now.ToString("D")
+            </h4>
+            <hr class="border border-info" style="background-color:#222">
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col p-4">
+                <div class="card shadow">
+                    <img src="https://centauro.com.mx/wp-content/uploads/9-preguntas-frecuentes-sobre-ir-al-dentista.jpg" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Consultas</h5>
+                        <p class="card-text">Resumen De todas las cunsultas pendientes, completadas, Canceladas</p>
+                        <a href="@Url.Action("Consultas","Dentista")" class="btn btn-outline-primary">Ver Consultas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col p-4">
+                <div class="card shadow">
+                    <img src="https://d100mj7v0l85u5.cloudfront.net/s3fs-public/2-MATERIALES-g1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Ventas</h5>
+                        <p class="card-text">Resumen de Insumos Pendientes.</p>
+                        <a href="@Url.Action("Insumos","Dentista")" class="btn btn-outline-success">Ver Insumos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</main>
+
