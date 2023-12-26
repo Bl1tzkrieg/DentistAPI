@@ -16,9 +16,13 @@ buttonPreviewVentaRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i>
 botonPreviewInsumosLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='detallesDeInsumo(";
 botonPreviewInsumosRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i></button>"
 
+//button detalles proveedor
+buttonProveedorLeft = "<button class='btn btn-info btn-sm' type='button' onclick='detallesDeProveedor(";
+buttonProveedorRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i></button>";
+
 // ***************** -------- *****************
 
-// button for cancel query
+// boton cancelar consulta
 buttonCancelQueryLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelarConsulta(";
 buttonCancelQueryRigth = ")'><i class='fa-solid fa-xmark fa-lg'></i></button>"
 
@@ -45,7 +49,10 @@ buttonModifyUserRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 
 // button for delete usuario
 buttonDeleteLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarUsuario(";
-buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>"
+buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
+
+buttonDeleteProveedorLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarProveedor(";
+buttonDeleteProveedorRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 
 
 // genera la tabla de Consultas
@@ -352,10 +359,73 @@ function crearTablaInsumos( elemento ) {
 
 }
 
+// genera la tabla de proveedores
+function crearTablaProveedores( elemento ) {
+
+    return $(elemento).DataTable({
+        ajax: {
+            "url": "/Peticiones/ResumenProveedores",
+            "type": "GET",
+            "datatype": "json",
+            "dataSrc": "",
+            "error": function (xhr, error, thrown) {
+                // Este es el manejador de errores o excepciones 
+                // For example, you can hide the alert using jQuery
+                console.log("Error al intentar intentar requerir las consultas!");
+            }
+        },
+        columns: [
+            { "data": "userId" },
+            { "data": "title" },
+            { "data": "body" },
+            {
+                "data": "id",
+                "render": (data) => {
+                    return buttonProveedorLeft + data + buttonProveedorRigth + buttonDeleteProveedorLeft + data + buttonDeleteProveedorRigth;
+                },
+                "ordenable": false,
+                "searchable": false,
+                "width": "150px",
+            },
+        ],
+        columnDefs: [
+            { className: "text-center", targets: "_all" },
+            { width: "60px", targets: [0, 3] },
+            { orderable: false, targets: [3] },
+        ],
+        "dom": 'Brfltip',
+        "buttons": [
+            {
+                text: '+Registrar Nuevo Proveedor',
+                className: "btn btn-primary text-white",
+                action: function (e, dt, node, config) {
+                    console.log("Registrar Nuevo Proveedor")
+                }
+            },
+        ],
+        autoHeight: true,
+        responsive: true,
+        processing: true,
+        language: {
+            // zeroRecords: "No hay registros disponibles.",
+            infoEmpty: "Sin Registros",
+            search: "Buscar",
+            processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
+            paginate: {
+                next: "<i class='fa-solid fa-arrow-right fa-2xs'></i>",
+                previous: "<i class='fa-solid fa-arrow-left fa-2xs'></i>"
+            },
+            info: "Mostrando _START_ a _END_ de _TOTAL_ elementos",
+            lengthMenu: "Mostrando _MENU_ filas",
+        }
+    });
+
+}
+
 
 /*   Funciones de consultas   */
-function detallesConsulta( consultaID ) {
-    console.log( "Detalles de Consulta -> " + consultaID )
+function detallesConsulta(consultaID) {
+    console.log( "Detalles de Consulta -> " + consultaID)
 }
 
 function cancelarConsulta(idConsulta) {
@@ -366,7 +436,12 @@ function facturarConsulta(consultaId) {
     console.log("Facturando Consulta -> " + consultaId)
 }
 
+function modificarConsulta(consultaId) {
+    console.log("Modificar Consulta -> " + consultaId)
+}
+
 // fin funciones de consultas
+
 
 /*    Funciones de Compras    */
 function detallesCompra(idCompra) {
@@ -408,6 +483,16 @@ function eliminarUsuario(idUsuario) {
     console.log("Eliminar Usuario -> " + idUsuario)
 }
 // fin funciones de Usuarios
+
+// funciones de proveedores
+function detallesDeProveedor( idProveedor ) {
+    console.log("Detalles de Proveedor : " + idProveedor);
+}
+
+function eliminarProveedor( idProveedor ) {
+    console.log("Eliminando Proveedor : " + idProveedor)
+}
+// fin funciones de proveedores
 
 
 

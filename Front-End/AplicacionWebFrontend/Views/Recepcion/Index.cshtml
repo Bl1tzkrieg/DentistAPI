@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Recepcion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+
+    <!-- HEADER -->
+    <header class="m-3 rounded-2 text-white shadow" style="background: linear-gradient(to right, #6666ff 0%, #6699ff 100%)">
+        <div class="jumbotron text-center p-5">
+            <h1 class="display-5">Bienvenido, @ViewBag.Title!</h1>
+            <h4>
+                Resumen disponible del dia @DateTime.Now.ToString("D")
+            </h4>
+            <hr class="border border-info" style="background-color:#222">
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-md-2 justify-content-center">
+            <div class="col col-md-6 p-4">
+                <div class="card shadow">
+                    <img src="https://img.freepik.com/foto-gratis/hermosa-chica-sentada-oficina-dentista_1157-19478.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1696377600&semt=ais" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Consultas</h5>
+                        <p class="card-text">Resumen De todas las cunsultas pendientes, completadas, Canceladas</p>
+                        <a href="@Url.Action("Consultas","Recepcion")" class="btn btn-outline-primary">Ver Consultas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
