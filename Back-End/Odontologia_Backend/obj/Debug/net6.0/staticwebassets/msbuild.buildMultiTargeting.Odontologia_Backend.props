@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Odontologia_Backend.props" />
+</Project>

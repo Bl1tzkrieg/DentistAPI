@@ -485,3 +485,16 @@ CREATE TABLE `ventas_detalle` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-02-14 11:20:42
+
+-- Roles
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('ADMINISTRADOR');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('DENTISTA');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('FACTURADOR');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('RECEPCION');
+
+
+-- Empleado de Prueba
+INSERT INTO `odontologia`.`empleados` (`Emp_Cedula`, `Emp_Nombre1`, `Emp_Nombre2`, `Emp_Apelldo1`, `Emp_Apellido2`, `Emp_Correo`) VALUES ('22376391', 'JESUS', 'ALFONSO', 'MORALES', 'SANCHEZ', 'ALFONZ2310@GMAIL.COM');
+
+-- Usuario de Prueba
+INSERT INTO `odontologia`.`usuarios` (`Usu_UserName`, `Usu_Password`, `Usu_Rol_Id`, `Usu_Emp_Id`) VALUES ('ALFONZO65', '1234', 1, 1);

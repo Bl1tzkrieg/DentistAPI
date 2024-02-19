@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Odontologia_Backend</name>
+    </assembly>
+    <members>
+        <member name="M:Odontologia_Backend.Class.AccessToken.GetUser(System.String,System.String)">
+            <summary>
+            Verifica las credenciales del usuario para darle permisos de acuerdo a su rol
+            </summary>
+            <param name="_user"></param>
+            <param name="_password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.AccessTokenController.StartSession(Odontologia_Backend.DTOs.User_DTO)">
+            <summary>
+            Verifica que las credenciales recibidas cumplan con los criterios establecidos
+            para retornar un token con toda la permisologia del usuario.
+            </summary>
+            <param name="user">Credenciales</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

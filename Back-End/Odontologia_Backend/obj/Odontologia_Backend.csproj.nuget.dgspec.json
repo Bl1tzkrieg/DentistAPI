@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AIRTEKCPS\\source\\repos\\Odontologia_Backend\\Odontologia_Backend.csproj": {}
+    "C:\\Users\\AIRTEKCPS\\Desktop\\DentistAPI\\Back-End\\Odontologia_Backend\\Odontologia_Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AIRTEKCPS\\source\\repos\\Odontologia_Backend\\Odontologia_Backend.csproj": {
+    "C:\\Users\\AIRTEKCPS\\Desktop\\DentistAPI\\Back-End\\Odontologia_Backend\\Odontologia_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AIRTEKCPS\\source\\repos\\Odontologia_Backend\\Odontologia_Backend.csproj",
+        "projectUniqueName": "C:\\Users\\AIRTEKCPS\\Desktop\\DentistAPI\\Back-End\\Odontologia_Backend\\Odontologia_Backend.csproj",
         "projectName": "Odontologia_Backend",
-        "projectPath": "C:\\Users\\AIRTEKCPS\\source\\repos\\Odontologia_Backend\\Odontologia_Backend.csproj",
+        "projectPath": "C:\\Users\\AIRTEKCPS\\Desktop\\DentistAPI\\Back-End\\Odontologia_Backend\\Odontologia_Backend.csproj",
         "packagesPath": "C:\\Users\\AIRTEKCPS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AIRTEKCPS\\source\\repos\\Odontologia_Backend\\obj\\",
+        "outputPath": "C:\\Users\\AIRTEKCPS\\Desktop\\DentistAPI\\Back-End\\Odontologia_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AIRTEKCPS\\AppData\\Roaming\\NuGet\\NuGet.Config",

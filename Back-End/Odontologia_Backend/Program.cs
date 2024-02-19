@@ -11,6 +11,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 // conexion a mysql
 builder.Services.AddDbContext<Context_MySql>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("MySqlConnection")));
