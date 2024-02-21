@@ -12,12 +12,35 @@
             <param name="_password"></param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerEmployees.ObtenerEmpleado(System.String)">
+            <summary>
+            Obtiene un empleado mediante su identificacion o cedula
+            </summary>
+            <param name="cedula">Identificacion</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="M:Odontologia_Backend.Controllers.AccessTokenController.StartSession(Odontologia_Backend.DTOs.User_DTO)">
             <summary>
             Verifica que las credenciales recibidas cumplan con los criterios establecidos
             para retornar un token con toda la permisologia del usuario.
             </summary>
             <param name="user">Credenciales</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Helper.Encryptar.HashPassword(System.String)">
+            <summary>
+            Encrypta la clave que se va a guardar en la base de datos.
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Helper.Encryptar.VerifyPassword(System.String,System.String)">
+            <summary>
+            compara la clave ingresada con la encryptada en la base de datos para ver si coincide.
+            </summary>
+            <param name="password"></param>
+            <param name="hashedPassword"></param>
             <returns></returns>
         </member>
     </members>

@@ -47,6 +47,8 @@ namespace Odontologia_Backend.Controllers
 
                 if (usuario is null) return Unauthorized("Usuario o password Invalidos");
 
+                if (usuario.Usu_Status.Equals(true)) return Unauthorized("tus privilegios han sido anulados");
+
                 var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, config_System["Jwt:Subject"]),

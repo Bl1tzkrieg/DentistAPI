@@ -26,7 +26,7 @@ namespace Odontologia_Backend.Class
 
                 // Validar si la clave encryptada enviada coincide con la que esta guardada en base de datos.
 
-                return await this.context_Mysql.usuarios.Where(x => x.Usu_UserName.Equals(_user) && x.Usu_Password.Equals(_password)).FirstOrDefaultAsync();
+                return await this.context_Mysql.usuarios.Where(x => x.Usu_UserName.Equals(_user.ToUpper()) && x.Usu_Password.Equals(_password)).FirstOrDefaultAsync();
             }
             catch ( Exception )
             {
