@@ -12,6 +12,22 @@
             <param name="_password"></param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerCustomer.ObtenerCliente(System.String)">
+            <summary>
+            Obtiene un cliente segun la cedula enviada
+            </summary>
+            <param name="cedula"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerCustomer.RegistrarCliente(Odontologia_Backend.Models.Cliente)">
+            <summary>
+            Registra un nuevo cliente.
+            </summary>
+            <param name="cliente"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="M:Odontologia_Backend.Class.HandlerEmployees.ObtenerEmpleado(System.String)">
             <summary>
             Obtiene un empleado mediante su identificacion o cedula
@@ -20,7 +36,60 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Odontologia_Backend.Controllers.AccessTokenController.StartSession(Odontologia_Backend.DTOs.User_DTO)">
+        <member name="M:Odontologia_Backend.Class.HandlerEmployees.RegistrarEmpleado(Odontologia_Backend.Models.Empleado)">
+            <summary>
+            
+            </summary>
+            <param name="empleado"></param>
+            <returns>""</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ObtenerConsultas(System.String)">
+            <summary>
+            Devuelve una lista de consultas segun el estatus ingresado.
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.RegistrarConsulta(Odontologia_Backend.Models.Consulta)">
+            <summary>
+            Registra una nueva consulta en la base de datos
+            </summary>
+            <param name="consulta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerSales.ObtenerVentas">
+            <summary>
+            Devuelve una lista de todas las ventas realizadas
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerSales.RegistrarVenta(Odontologia_Backend.Models.Venta)">
+            <summary>
+            Registra una nueva venta en la base de datos
+            </summary>
+            <param name="venta"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerUsers.ObtenerUsuario(System.String)">
+            <summary>
+            Devuelve Un usuario filtrando la busqueda por su nombre de usuario
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerUsers.RegistrarUsuario(Odontologia_Backend.Models.Usuario)">
+            <summary>
+            Registra un nuevo usuario a la base de datos
+            </summary>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.AccessTokenController.StartSession(Odontologia_Backend.DTOs.UserAccess_DTO)">
             <summary>
             Verifica que las credenciales recibidas cumplan con los criterios establecidos
             para retornar un token con toda la permisologia del usuario.

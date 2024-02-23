@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Odontologia_Backend.Class;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
+using Odontologia_Backend.Helper;
+using Odontologia_Backend.Models;
 
 namespace Odontologia_Backend.Controllers
 {
@@ -15,6 +18,62 @@ namespace Odontologia_Backend.Controllers
         public QuerysController(Context_MySql dbMysql)
         {
             this.recursos_Consultas = new HandlerQuerys(dbMysql);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetConsultas([FromQuery] string v1)
+        {
+            try
+            {
+                List<Consulta> listaDeConsultas = await this.recursos_Consultas.ObtenerConsultas(v1);
+
+                return listaDeConsultas.Count > 0 ? Ok(listaDeConsultas) : BadRequest("lista vacia");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PostConsulta(Query_DTO query)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int statusRegistro, string message) = await this.recursos_Consultas.RegistrarConsulta(new Consulta
+                {
+                    Consult_Id_Cliente = query.id_cliente,
+                    Consult_Descripcion = query.descripcion,
+                    Consult_Usu_Id = query.id_usuario,
+                    Consult_FecAsig = DateTime.Parse(query.fecha_asignacion),
+                    Consult_FecGen = DateTime.Parse(query.fecha_generacion),
+                    Consult_Status = "PENDIENTE"
+                });
+
+                return statusRegistro > 0 ? Ok(message) : BadRequest();
+            }
+            catch (Exception ex) 
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult> PatchConsulta()
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
         }
 
     }

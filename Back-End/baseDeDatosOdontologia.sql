@@ -36,7 +36,7 @@ CREATE TABLE `consultas` (
   `Consult_Usu_Id` smallint unsigned NOT NULL DEFAULT '0',
   `Consult_FecAsig` date NOT NULL DEFAULT '1000-01-01',
   `Consult_FecGen` date NOT NULL DEFAULT '1000-01-01',
-  `Consult_Status` bit(2) NOT NULL DEFAULT (0),
+  `Consult_Status` VARCHAR(50) NOT NULL DEFAULT 'PENDIENTE' COLLATE 'utf8mb4_0900_ai_ci',
   PRIMARY KEY (`Consult_Id`),
   KEY `FK1_Consult_Usu` (`Consult_Usu_Id`),
   KEY `FK2_Consult_Cli` (`Consult_Id_Cliente`),

@@ -13,5 +13,6 @@ namespace Odontologia_Backend.Data
         public DbSet<Cliente> clientes { get; set; }
         public DbSet<Venta> ventas { get; set; }
         public DbSet<Compra> compras { get; set; }
+        public DbSet<Consulta> consultas { get; set; }
     }
 }

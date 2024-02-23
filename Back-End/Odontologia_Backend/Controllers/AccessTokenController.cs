@@ -33,7 +33,7 @@ namespace Odontologia_Backend.Controllers
         /// <param name="user">Credenciales</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> StartSession([FromBody] User_DTO user)
+        public async Task<ActionResult> StartSession([FromBody] UserAccess_DTO user)
         {
             try
             {

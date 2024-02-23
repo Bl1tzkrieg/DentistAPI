@@ -4,5 +4,7 @@
     {
         public string username { get; set; }
         public string password { get; set; }
+        public byte rol { get; set; }
+        public short empleado_id { get; set; }
     }
 }
