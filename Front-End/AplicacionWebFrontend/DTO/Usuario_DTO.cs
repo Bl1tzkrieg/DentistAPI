@@ -7,9 +7,7 @@ namespace AplicacionWebFrontend.DTO
 {
     public class Usuario_DTO
     {
-        public int ID { get; set; }
-        public string CORREO { get; set; }
+        public string USUARIO { get; set; }
         public string PASSWORD { get; set; }
-        public string CONFIRMARPASSWORD { get; set; }
     }
 }

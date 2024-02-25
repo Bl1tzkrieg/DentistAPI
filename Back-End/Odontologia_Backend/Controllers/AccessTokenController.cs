@@ -70,7 +70,7 @@ namespace Odontologia_Backend.Controllers
                         //expires: _ValidToken,
                         signingCredentials: signIn);
 
-                return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                return Ok( new { rol = usuario.Usu_Rol_Id, username = usuario.Usu_UserName, status = usuario.Usu_Status, token = new JwtSecurityTokenHandler().WriteToken(token) } );
             }
             catch (Exception ex)
             {

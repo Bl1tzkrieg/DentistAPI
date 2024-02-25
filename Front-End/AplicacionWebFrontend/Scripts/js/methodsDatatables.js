@@ -248,11 +248,13 @@ function crearTablaUsuarios( elemento ) {
             }
         },
         columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
+            { "data": "Usu_Id" },
+            { "data": "Usu_UserName" },
+            { "data": "Usu_Password" },
+            { "data": "Usu_Rol_Id" },
+            { "data": "Usu_Status"},
             {
-                "data": "id",
+                "data": "Usu_Id",
                 "render": (data) => {
                     return buttonModifyUserLeft + data + buttonModifyUserRigth + buttonDeleteLeft + data + buttonDeleteRigth;
                 },

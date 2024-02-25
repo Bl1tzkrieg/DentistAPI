@@ -36,7 +36,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -71,7 +71,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -106,7 +106,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -122,8 +122,8 @@ namespace AplicacionWebFrontend.Controllers
         {
             try
             {
-                var clientJsonPlaceHolder = new RestClient("https://jsonplaceholder.typicode.com/posts");
-                var request = new RestRequest("");
+                var clientJsonPlaceHolder = new RestClient("https://localhost:7091");
+                var request = new RestRequest("/api/Users");
 
                 var respuesta = await clientJsonPlaceHolder.ExecuteGetAsync(request);
 
@@ -141,7 +141,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -176,7 +176,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -211,7 +211,7 @@ namespace AplicacionWebFrontend.Controllers
                 var json = respuesta.Content;
 
                 // Deserialize the JSON string to a list of objects
-                var data = JsonConvert.DeserializeObject<List<Post>>(json);
+                var data = JsonConvert.DeserializeObject<List<Usuarios>>(json);
 
                 // Return the data as a JsonResult
                 return Json(data, JsonRequestBehavior.AllowGet);

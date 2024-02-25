@@ -1,4 +1,5 @@
-﻿using AplicacionWebFrontend.Models;
+﻿using AplicacionWebFrontend.DTO;
+using AplicacionWebFrontend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,11 @@ namespace AplicacionWebFrontend.Permisos
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            if (HttpContext.Current.Session["usuario"] != null)
+            if (HttpContext.Current.Session["info_usuario"] != null)
             {
-                Usuario usuario = HttpContext.Current.Session["usuario"] as Usuario;
+                UsuarioAccess_DTO usuario = HttpContext.Current.Session["info_usuario"] as UsuarioAccess_DTO;
 
-                if (usuario.ROLL != this.rol)
+                if (usuario.rol != this.rol)
                 {
                     filterContext.Result = new RedirectResult("~/Acceso/SinPermisos");
                 }

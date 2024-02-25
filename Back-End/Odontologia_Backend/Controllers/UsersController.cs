@@ -21,13 +21,13 @@ namespace Odontologia_Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetUsuario(string username)
+        public async Task<ActionResult> GetUsuario([FromQuery] string username )
         {
             try
             {
-                Usuario? user = await this.recursos_Usuarios.ObtenerUsuario(username);
+                List<Usuario> user = await this.recursos_Usuarios.ObtenerUsuario(username);
 
-                return user is not null ? Ok(user) : BadRequest();
+                return user.Count > 0 ? Ok(user) : BadRequest("No se encontro ningun usuario con ese nombre o la lista esta vacia");
             }
             catch (Exception ex)
             {

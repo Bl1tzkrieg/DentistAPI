@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Odontologia_Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6bade16b0d2024c4ccb473f77b3e5f5b36444b1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c83572eda38af0c9ab841677910cb098c6dc2ed0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Odontologia_Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Odontologia_Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -21,11 +21,14 @@ namespace Odontologia_Backend.Class
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<Usuario?> ObtenerUsuario( string user )
+        public async Task<List<Usuario>> ObtenerUsuario( string user )
         {
             try
             {
-                return await this.context_Mysql.usuarios.FirstOrDefaultAsync( x => x.Usu_UserName.Equals(user));
+                if (string.IsNullOrEmpty(user))
+                    return await this.context_Mysql.usuarios.ToListAsync();
+
+                return await this.context_Mysql.usuarios.Where(x => x.Usu_UserName.Equals(user)).ToListAsync();
             }
             catch (Exception ex)
             {
