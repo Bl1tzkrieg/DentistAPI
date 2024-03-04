@@ -20,12 +20,12 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Consultas = new HandlerQuerys(dbMysql);
         }
 
-        [HttpGet]
+        [HttpGet("obtener_consultas")]
         public async Task<ActionResult> GetConsultas([FromQuery] string v1)
         {
             try
             {
-                List<Consulta> listaDeConsultas = await this.recursos_Consultas.ObtenerConsultas(v1);
+                List<Object> listaDeConsultas = await this.recursos_Consultas.ObtenerConsultas(v1);
 
                 return listaDeConsultas.Count > 0 ? Ok(listaDeConsultas) : BadRequest("lista vacia");
             }
@@ -35,7 +35,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("registrar_consulta")]
         public async Task<ActionResult> PostConsulta(Query_DTO query)
         {
             try
@@ -63,7 +63,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPatch("actualizar_consulta")]
         public async Task<ActionResult> PatchConsulta()
         {
             try

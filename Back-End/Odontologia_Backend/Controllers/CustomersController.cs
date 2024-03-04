@@ -20,14 +20,14 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Clientes = new HandlerCustomer(dbMysql);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetCliente([FromQuery] string v1)
+        [HttpGet("obtener_clientes")]
+        public async Task<ActionResult> GetClientes()
         {
             try
             {
-                Cliente? customer = await this.recursos_Clientes.ObtenerCliente(v1);
+                List<Object> customer = await this.recursos_Clientes.ObtenerClientes();
 
-                return customer is not null ? Ok(customer) : NotFound("Cliente no Encontrado!");
+                return customer.Count > 0 ? Ok(customer) : NotFound("La lista de clientes esta vacia");
             }
             catch (Exception ex)
             {

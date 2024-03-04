@@ -73,11 +73,17 @@ function crearTablaConsultas( elemento, tipo ) {
             }
         },
         columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
+            { "data": "consulta_id" },
+            { "data": "cedula_cliente" },
+            { "data": "nombre_cliente" },
+            { "data": "apellido_cliente" },
+            { "data": "descripcion_consulta" },
+            { "data": "fecha_generacion" },
+            { "data": "fecha_asignacion" },
+            { "data": "nombre_usuario" },
+            { "data": "consulta_estado" },
             {
-                "data": "id",
+                "data": "consulta_id",
                 "render": (data) => {
                     if (tipo == 1)
                         return buttonPreviewConsultaLeft + data + buttonPreviewConsultaRigth;
@@ -314,11 +320,13 @@ function crearTablaInsumos( elemento ) {
             }
         },
         columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
+            { "data": "pedido_id" },
+            { "data": "pedido_cantidad" },
+            { "data": "pedido_descripcion" },
+            { "data": "pedido_username" },
+            { "data": "pedido_fecha" },
             {
-                "data": "id",
+                "data": "pedido_id",
                 "render": (data) => {
                     return botonPreviewInsumosLeft + data + botonPreviewInsumosRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
                 },

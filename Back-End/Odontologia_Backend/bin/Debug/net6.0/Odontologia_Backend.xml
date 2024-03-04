@@ -12,7 +12,7 @@
             <param name="_password"></param>
             <returns></returns>
         </member>
-        <member name="M:Odontologia_Backend.Class.HandlerCustomer.ObtenerCliente(System.String)">
+        <member name="M:Odontologia_Backend.Class.HandlerCustomer.ObtenerClientes">
             <summary>
             Obtiene un cliente segun la cedula enviada
             </summary>

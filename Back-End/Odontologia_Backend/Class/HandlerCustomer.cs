@@ -21,11 +21,19 @@ namespace Odontologia_Backend.Class
         /// <param name="cedula"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<Cliente?> ObtenerCliente(string cedula)
+        public async Task<List<Object>> ObtenerClientes()
         {
             try
             {
-                return await this.context_Mysql.clientes.FirstOrDefaultAsync( x => x.Cli_Cedula.Equals(cedula));
+                return await this.context_Mysql.clientes
+                    .Where(c => true)
+                    .Select( c => new { 
+                        identificador = c.Cli_Id,
+                        identificacion = c.Cli_Cedula,
+                        nombre_completo = string.Concat($"{c.Cli_Nombre1} {c.Cli_Nombre2}", $" {c.Cli_Apellido1} {(string.IsNullOrEmpty(c.Cli_Apellido2) ? "" : c.Cli_Apellido2)}"),
+                        cliente_status = c.Cli_Status,
+                    })
+                    .ToListAsync<Object>();
             }
             catch (Exception)
             {
