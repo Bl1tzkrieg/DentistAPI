@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Odontologia_Backend.Class;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
+using Odontologia_Backend.Helper;
 using Odontologia_Backend.Models;
 
 namespace Odontologia_Backend.Controllers
@@ -18,7 +20,7 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Compras = new HandlerShopping(dbMysql);
         }
 
-        [HttpGet]
+        [HttpGet("obtener_compras")]
         public async Task<ActionResult> GetCompras()
         {
             try
@@ -32,5 +34,33 @@ namespace Odontologia_Backend.Controllers
                 return Problem(ex.Message, default, 500);
             }
         }
+
+        /// <summary>
+        /// Registra una compra asociada
+        /// </summary>
+        /// <param name="reqBody"></param>
+        /// <returns></returns>
+        [HttpPost("registrar_compra")]
+        public async Task<ActionResult> PostCompra([FromBody] Buys_DTO reqBody )
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Compras.RegistrarCompra(reqBody);
+
+                // Comentario luego de registrar una compra se debe actualizar el id del pedido asociado.
+
+                return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
     }
 }

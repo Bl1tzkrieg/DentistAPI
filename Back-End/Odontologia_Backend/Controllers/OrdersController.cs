@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Odontologia_Backend.Class;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
+using Odontologia_Backend.Helper;
 
 namespace Odontologia_Backend.Controllers
 {
@@ -24,6 +26,26 @@ namespace Odontologia_Backend.Controllers
                 List<Object> statusPedidos = await this.recursos_Pedidos.ObtenerPedidos();
 
                 return statusPedidos.Count > 0 ? Ok(statusPedidos) : NotFound("No hay pedidos disponibles");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPost("registrar_pedido")]
+        public async Task<ActionResult> PostPedidos([FromBody] Order_DTO reqBody )
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Pedidos.RegistrarPedido(reqBody);
+                
+                return status > 0 ? Ok(message) : BadRequest(message);
             }
             catch (Exception ex)
             {

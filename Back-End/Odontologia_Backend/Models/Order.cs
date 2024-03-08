@@ -10,5 +10,6 @@ namespace Odontologia_Backend.Models
         public string Ped_Descripcion { get; set; }
         public short Ped_Usu_Id { get; set; }
         public DateTime Ped_Fecha { get; set; }
+        public string Ped_Status { get; set; }
     }
 }

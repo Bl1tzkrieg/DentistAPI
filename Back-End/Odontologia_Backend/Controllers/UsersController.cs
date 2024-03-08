@@ -20,7 +20,7 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Usuarios = new HandlerUsers(dbMysql);
         }
 
-        [HttpGet]
+        [HttpGet("obtener_usuario")]
         public async Task<ActionResult> GetUsuario([FromQuery] string username )
         {
             try
@@ -35,7 +35,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("registrar_usuario")]
         public async Task<ActionResult> PostUsuario(User_DTO user)
         {
             try
@@ -61,12 +61,25 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPatch]
-        public async Task<ActionResult> PatchUsuario()
+        [HttpPatch("actualizar_usuario")]
+        public async Task<ActionResult> PatchUsuario([FromBody] UserUpdate_DTO user)
         {
             try
             {
-                return Ok();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Usuarios.ActualizarUsuario(new Usuario
+                {
+                    Usu_UserName = user.username.ToUpper(),
+                    Usu_Password = user.password,
+                    Usu_Status = user.username_status,
+                    Usu_Rol_Id = user.rol,
+                });
+
+                return status > 0 ? Ok(message) : BadRequest(message);
             }
             catch (Exception ex)
             {

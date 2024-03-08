@@ -1,11 +1,3 @@
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.csproj.AssemblyReference.cache
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.AssemblyInfoInputs.cache
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.AssemblyInfo.cs
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.csproj.CoreCompileInputs.cache
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.sourcelink.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\appsettings.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\Odontologia_Backend.exe
@@ -62,6 +54,14 @@ C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.csproj.AssemblyReference.cache
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.AssemblyInfoInputs.cache
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.AssemblyInfo.cs
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.csproj.CoreCompileInputs.cache
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\Odontologia_Backend.sourcelink.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\AIRTEKCPS\Desktop\DentistAPI\Back-End\Odontologia_Backend\obj\Debug\net6.0\staticwebassets\msbuild.Odontologia_Backend.Microsoft.AspNetCore.StaticWebAssets.props

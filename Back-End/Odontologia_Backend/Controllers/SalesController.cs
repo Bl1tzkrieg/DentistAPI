@@ -21,7 +21,7 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Ventas = new HandlerSales(dbMysql);
         }
 
-        [HttpGet]
+        [HttpGet("obtener_ventas")]
         public async Task<ActionResult> GetVentas()
         {
             try
@@ -36,7 +36,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("registrar_venta")]
         public async Task<ActionResult> PostVentas([FromBody] Sale_DTO sale)
         {
             try
@@ -51,7 +51,8 @@ namespace Odontologia_Backend.Controllers
                     Venta_Cli_Id = sale.id_cliente,
                     Venta_NroFactura = sale.nro_factura,
                     Venta_Usu_Id = sale.id_usuario,
-                    Venta_Vd_Id = sale.venta_detalle_id
+                    Venta_Vd_Id = sale.venta_detalle_id,
+                    Venta_fecha = DateTime.Now
                 });
 
                 return statusRegistro > 0 ? Ok(message) : BadRequest(message);

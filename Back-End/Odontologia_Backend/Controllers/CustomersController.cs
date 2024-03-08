@@ -35,7 +35,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("registrar_cliente")]
         public async Task<ActionResult> PostCliente(Customer_DTO cliente )
         {
             try
@@ -62,7 +62,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPatch("actualizar_cliente")]
         public async Task<ActionResult> PatchCliente(Customer_DTO cliente)
         {
             try

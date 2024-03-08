@@ -21,7 +21,7 @@ namespace Odontologia_Backend.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("obtener_empleado")]
         public async Task<ActionResult> GetEmpleado([FromQuery] string v1 )
         {
             try
@@ -38,7 +38,7 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("registrar_empleado")]
         public async Task<ActionResult> PostEmpleado([FromBody] Employee_DTO empleado)
         {
             try

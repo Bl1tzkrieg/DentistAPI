@@ -6,5 +6,6 @@
         public string password { get; set; }
         public byte rol { get; set; }
         public short empleado_id { get; set; }
+        public bool status { get; set; }
     }
 }

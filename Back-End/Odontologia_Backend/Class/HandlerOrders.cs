@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
+using Odontologia_Backend.Models;
 
 namespace Odontologia_Backend.Class
 {
@@ -26,13 +28,37 @@ namespace Odontologia_Backend.Class
                         pedido_cantidad = x.pedido.Ped_Cant,
                         pedido_descripcion = x.pedido.Ped_Descripcion,
                         pedido_username = x.usuario.Usu_UserName,
-                        pedido_fecha = x.pedido.Ped_Fecha.ToString("dd/MM/yyyy")
+                        pedido_fecha = x.pedido.Ped_Fecha.ToString("dd/MM/yyyy"),
+                        pedido_status = x.pedido.Ped_Status
                     })
                     .ToListAsync<Object>();
 
                 return listaDePedidos;
             }
             catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<(int, string)> RegistrarPedido( Order_DTO pedido )
+        {
+            try
+            {
+
+                await this.context_Mysql.pedido_insumo.AddAsync(new Order
+                {
+                    Ped_Cant = pedido.pedido_cantidad,
+                    Ped_Descripcion = pedido.pedido_descripcion,
+                    Ped_Usu_Id = pedido.pedido_usuario_id,
+                    Ped_Fecha = DateTime.Now,
+                });
+
+                await this.context_Mysql.SaveChangesAsync();
+
+                return (1, "Pedido registrado con Exito");
+            }
+            catch (Exception)
             {
                 throw;
             }

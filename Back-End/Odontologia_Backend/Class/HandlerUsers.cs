@@ -60,5 +60,35 @@ namespace Odontologia_Backend.Class
 
             }
         }
+
+        /// <summary>
+        /// Actualiza un usuario segun su username
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public async Task<(int,string)> ActualizarUsuario( Usuario usuario)
+        {
+            try
+            {
+                Usuario? statusUser = await this.context_Mysql.usuarios.FirstOrDefaultAsync(x => x.Usu_UserName.Equals(usuario.Usu_UserName));
+
+                // validar si es null
+                if(statusUser != null) 
+                {
+                    statusUser.Usu_Password = usuario.Usu_Password;
+                    statusUser.Usu_Status = usuario.Usu_Status;
+                    statusUser.Usu_Rol_Id = usuario.Usu_Rol_Id;
+                }
+
+                // actualizar cambios
+                await this.context_Mysql.SaveChangesAsync();
+
+                return (1, "Usuario Actualizado con exito!");
+            }
+            catch ( Exception ex )
+            {
+                throw;
+            }
+        }
     }
 }

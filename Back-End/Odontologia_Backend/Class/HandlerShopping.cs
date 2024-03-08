@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
 using Odontologia_Backend.Models;
 
 namespace Odontologia_Backend.Class
@@ -20,6 +21,29 @@ namespace Odontologia_Backend.Class
                 return await this.context_Mysql.compras.ToListAsync();
             }
             catch ( Exception ex )
+            {
+                throw;
+            }
+        }
+
+        public async Task<(int,string)> RegistrarCompra( Buys_DTO compra )
+        {
+            try
+            {
+                await this.context_Mysql.compras.AddAsync(new Compra
+                {
+                    Comp_Usu_Id = compra.id_usuario,
+                    Comp_Ped_Id = compra.id_pedido,
+                    Comp_Fecha = DateTime.Now,
+                    Comp_NroFactura = compra.nro_factura,
+                    Comp_Total = compra.total,
+                });
+
+                await this.context_Mysql.SaveChangesAsync();
+
+                return (1, "Compra registrada con exito!");
+            }
+            catch (Exception ex )
             {
                 throw;
             }

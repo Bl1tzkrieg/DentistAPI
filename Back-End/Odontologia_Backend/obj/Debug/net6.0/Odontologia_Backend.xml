@@ -89,12 +89,26 @@
             <param name="usuario"></param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerUsers.ActualizarUsuario(Odontologia_Backend.Models.Usuario)">
+            <summary>
+            Actualiza un usuario segun su username
+            </summary>
+            <param name="usuario"></param>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Controllers.AccessTokenController.StartSession(Odontologia_Backend.DTOs.UserAccess_DTO)">
             <summary>
             Verifica que las credenciales recibidas cumplan con los criterios establecidos
             para retornar un token con toda la permisologia del usuario.
             </summary>
             <param name="user">Credenciales</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.ShoppingController.PostCompra(Odontologia_Backend.DTOs.Buys_DTO)">
+            <summary>
+            Registra una compra asociada
+            </summary>
+            <param name="reqBody"></param>
             <returns></returns>
         </member>
         <member name="M:Odontologia_Backend.Helper.Encryptar.HashPassword(System.String)">
