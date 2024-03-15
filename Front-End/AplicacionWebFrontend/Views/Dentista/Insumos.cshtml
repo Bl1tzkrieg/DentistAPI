@@ -28,6 +28,74 @@
         </table>
     </div>
 
+    <!-- Modal registro de insumo -->
+    <div class="modal fade" id="modalRegistroInsumo" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Registrar Insumo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioRegistroInsumo">
+                        <div class="mb-3">
+                            <label for="usuario_id">Usuario Id</label>
+                            <input type="text" class="form-control" id="usuario_id" disabled>
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" min="1" max="100" class="form-control" id="cantidad" required>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <textarea class="form-control" required id="descripcion_pedido" style="height: 100px; resize:none;"></textarea>
+                            <label for="descripcion_pedido">Descripcion del pedido</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal update de insumo -->
+    <div class="modal fade" id="modalUpdateInsumo" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Modificar Insumo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioUpdateInsumo">
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" id="pedido_id_update">
+                            <label for="username_update">Registrado por</label>
+                            <input type="text" class="form-control" id="username_update" disabled>
+                            <label for="fecha">Fecha de emision</label>
+                            <input type="text" class="form-control" id="fecha" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad_update">Cantidad</label>
+                            <input type="number" min="1" max="100" class="form-control" id="cantidad_update" required>
+                            <label for="estado">Estatus</label>
+                            <input type="text" class="form-control" id="estado" disabled>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <textarea class="form-control" id="descripcion_pedido_update" style="height: 100px; resize:none;"></textarea>
+                            <label for="descripcion_pedido_update">Descripcion del pedido</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </main>
 
 @section scripts{

@@ -41,12 +41,29 @@ namespace Odontologia_Backend.Class
             }
         }
 
-        /// <summary>
-        /// Registra un nuevo cliente.
-        /// </summary>
-        /// <param name="cliente"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
+        public async Task<Object?> ObtenerCliente( string cedula )
+        {
+            try
+            {
+                return await this.context_Mysql.clientes
+                    .Where( x => x.Cli_Cedula.Equals( cedula ) )
+                    .Select( c => new
+                    {
+                        cliente_id = c.Cli_Id,
+                        cliente_nombre = c.Cli_Nombre1,
+                        cliente_apellido = c.Cli_Apellido1,
+                        cliente_cedula = c.Cli_Cedula,
+                        cliente_status = c.Cli_Status
+                    })
+                    .FirstOrDefaultAsync<Object>();
+            }
+            catch ( Exception )
+            {
+                throw;
+            }
+        }
+
+        
         public async Task<(int,string)> RegistrarCliente( Cliente cliente )
         {
             using (IDbContextTransaction transactionMySql = this.context_Mysql.Database.BeginTransaction())

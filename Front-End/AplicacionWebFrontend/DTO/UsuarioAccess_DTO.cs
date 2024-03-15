@@ -7,6 +7,7 @@ namespace AplicacionWebFrontend.DTO
 {
     public class UsuarioAccess_DTO
     {
+        public int user_id { get; set; }
         public string username { get; set; }
         public bool status { get; set; }
         public byte rol { get; set; }

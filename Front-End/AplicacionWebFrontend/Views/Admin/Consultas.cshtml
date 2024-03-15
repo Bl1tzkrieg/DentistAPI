@@ -21,15 +21,69 @@
                     <th scope="col" colspan="1">Cedula Cliente</th>
                     <th scope="col" colspan="1">Nombre</th>
                     <th scope="col" colspan="1">Apellido</th>
-                    <th scope="col" colspan="1">Descripcion</th>
-                    <th scope="col" colspan="1">Fecha de Consulta</th>
-                    <th scope="col" colspan="1">Fecha de Emision</th>
                     <th scope="col" colspan="1">Registrado por</th>
                     <th scope="col" colspan="1">Estado de la consulta</th>
-                    <th scope="col" colspan="1">Ver</th>
+                    <th scope="col" colspan="1">Detalles</th>
                 </tr>
             </thead>
         </table>
+    </div>
+
+    <!-- Modal de detalles de consulta -->
+    <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Detalles de la consulta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="cedula">Cedula</label>
+                            <input type="text" id="cedula" class="form-control" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="registrado">Registrado por</label>
+                            <input type="text" class="form-control" id="registrado" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="estado">Estado Consulta</label>
+                            <input type="text" class="form-control" id="estado" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="fecasig">Fecha de Consulta</label>
+                            <input type="text" class="form-control" id="fecasig" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="fecemi">Fecha de Emision</label>
+                            <input type="text" class="form-control" id="fecemi" disabled>
+                        </div>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px; resize:none;" disabled></textarea>
+                        <label for="floatingTextarea2">Descripcion de la consulta</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </main>

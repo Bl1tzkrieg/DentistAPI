@@ -26,9 +26,26 @@ namespace Odontologia_Backend.Controllers
         {
             try
             {
-                List<Venta> listaDeVentas = await this.recursos_Ventas.ObtenerVentas();
+                List<Object> listaDeVentas = await this.recursos_Ventas.ObtenerVentas();
 
                 return listaDeVentas.Count > 0 ? Ok(listaDeVentas) : BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpGet("obtener_venta")]
+        public async Task<ActionResult> GetVenta([FromQuery] int v1 = -1 )
+        {
+            try 
+            {
+                if (v1 <= -1) return BadRequest();
+
+                Object? statusVenta = await this.recursos_Ventas.ObtenerVenta( v1 );
+
+                return statusVenta != null ? Ok(statusVenta) : NotFound();
             }
             catch (Exception ex)
             {
@@ -52,7 +69,7 @@ namespace Odontologia_Backend.Controllers
                     Venta_NroFactura = sale.nro_factura,
                     Venta_Usu_Id = sale.id_usuario,
                     Venta_Vd_Id = sale.venta_detalle_id,
-                    Venta_fecha = DateTime.Now
+                    Venta_FecGen = DateTime.Now
                 });
 
                 return statusRegistro > 0 ? Ok(message) : BadRequest(message);
@@ -63,7 +80,6 @@ namespace Odontologia_Backend.Controllers
                 return Problem(ex.Message, default, 500);
             }
         }
-
 
         [HttpPatch]
         public async Task<ActionResult> PatchVentas()

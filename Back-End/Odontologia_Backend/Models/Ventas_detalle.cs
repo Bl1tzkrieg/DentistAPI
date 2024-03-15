@@ -6,7 +6,6 @@ namespace Odontologia_Backend.Models
     {
         [Key]
         public int Vd_Id { get; set; }
-        public byte Vd_Servicio_Id { get; set; }
         public decimal Vd_Costo { get; set; }
         public decimal Vd_Total { get; set; }
     }

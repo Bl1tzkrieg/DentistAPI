@@ -11,6 +11,6 @@ namespace Odontologia_Backend.Models
         public string Usu_Password { get; set; }
         public byte Usu_Rol_Id { get; set; }
         public short Usu_Emp_Id { get; set; }
-        public bool Usu_Status { get; set; }
+        public bool Usu_Status { get; set; } = true;
     }
 }

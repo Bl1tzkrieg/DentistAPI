@@ -12,5 +12,6 @@ namespace AplicacionWebFrontend.Models
         public string pedido_descripcion { get; set; }
         public string pedido_username { get; set; }
         public string pedido_fecha { get; set; }
+        public string pedido_status { get; set; }
     }
 }

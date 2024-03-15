@@ -35,6 +35,21 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        [HttpGet("obtener_cliente")]
+        public async Task<ActionResult> GetCliente([FromQuery] string v1)
+        {
+            try
+            {
+                Object? statusCliente = await this.recursos_Clientes.ObtenerCliente(v1);
+
+                return statusCliente is not null ? Ok(statusCliente) : NotFound("cliente no encontrado");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
         [HttpPost("registrar_cliente")]
         public async Task<ActionResult> PostCliente(Customer_DTO cliente )
         {

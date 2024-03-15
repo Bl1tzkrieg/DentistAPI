@@ -33,6 +33,21 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        [HttpGet("obtener_pedido")]
+        public async Task<ActionResult> GetPedido([FromQuery] int v1)
+        {
+            try
+            {
+                Object? statusPedido = await this.recursos_Pedidos.ObtenerPedido(v1);
+
+                return statusPedido is not null ? Ok(statusPedido) : NotFound(); 
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
         [HttpPost("registrar_pedido")]
         public async Task<ActionResult> PostPedidos([FromBody] Order_DTO reqBody )
         {
@@ -48,6 +63,26 @@ namespace Odontologia_Backend.Controllers
                 return status > 0 ? Ok(message) : BadRequest(message);
             }
             catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPatch("actualizar_pedido")]
+        public async Task<ActionResult> PatchPedido([FromBody] OrderUpdate_DTO reqBody)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Pedidos.ActualizarPedido(reqBody);
+
+                return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch ( Exception ex)
             {
                 return Problem(ex.Message, default, 500);
             }

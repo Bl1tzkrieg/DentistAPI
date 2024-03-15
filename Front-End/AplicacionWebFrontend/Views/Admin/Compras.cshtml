@@ -17,14 +17,76 @@
         <table class="table table-striped responsive" cellspacing="0" style="width:100%" id="tbcompras">
             <thead class="table-primary">
                 <tr>
-                    <th scope="col" colspan="1">userId</th>
-                    <th scope="col" colspan="1">title</th>
-                    <th scope="col" colspan="1">body</th>
+                    <th scope="col" colspan="1">Id</th>
+                    <th scope="col" colspan="1">Realizada Por</th>
+                    <th scope="col" colspan="1">Fecha</th>
+                    <th scope="col" colspan="1">Numero de Pedido</th>
+                    <th scope="col" colspan="1">Numero de factura</th>
+                    <th scope="col" colspan="1">Total</th>
                     <th scope="col" colspan="1">Ver</th>
                 </tr>
             </thead>
         </table>
     </div>
+
+    <!-- Modal de detalles de compra -->
+    <div class="modal fade" id="modalCompra" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Detalles de la compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col">
+                            <label for="nombre_usuario">Compra realizada por</label>
+                            <input type="text" class="form-control" id="nombre_usuario" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="compra_fecha">Fecha de compra</label>
+                            <input type="text" class="form-control" id="compra_fecha" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="numero_factura">Numero de factura</label>
+                            <input type="text" id="numero_factura" class="form-control" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="fecha_pedido">Fecha de pedido</label>
+                            <input type="text" class="form-control" id="fecha_pedido" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="estado">Estado pedido</label>
+                            <input type="text" class="form-control" id="estado" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="text" class="form-control" id="cantidad" disabled>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <label for="compra_total">Total</label>
+                            <input type="text" class="form-control" id="compra_total" disabled>
+                        </div>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px; resize:none;" disabled></textarea>
+                        <label for="floatingTextarea2">Descripcion del pedido</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </main>
 

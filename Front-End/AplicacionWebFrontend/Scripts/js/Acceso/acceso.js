@@ -35,6 +35,7 @@ $(document).ready(function () {
 
         if (response.ok) {
             $("#btnSubmit").html("Log In");
+            localStorage.setItem('user_id', credenciales.user_id);
             // $("#btnSubmit").prop("disabled", false);
             window.location.href = "/" + SelectRol(credenciales.rol) + "/Index";
         } else {

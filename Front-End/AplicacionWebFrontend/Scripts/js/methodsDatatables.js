@@ -13,8 +13,8 @@ buttonPreviewVentaLeft = "<button class='btn btn-primary btn-sm' type='button' o
 buttonPreviewVentaRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i></button>"
 
 // boton detalles de insumo
-botonPreviewInsumosLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='detallesDeInsumo(";
-botonPreviewInsumosRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i></button>"
+botonModifyInsumosLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='updateDeInsumo(";
+botonModifyInsumosRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 
 //button detalles proveedor
 buttonProveedorLeft = "<button class='btn btn-info btn-sm' type='button' onclick='detallesDeProveedor(";
@@ -47,6 +47,10 @@ buttonFacturarConsultaRigth = ")'><i class='fa-solid fa-square-check fa-lg'></i>
 buttonModifyUserLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='modificarUsuario(";
 buttonModifyUserRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 
+// button for modify query
+buttonModifyQueryLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='modificarConsulta(";
+buttonModifyQueryRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
+
 // button for delete usuario
 buttonDeleteLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarUsuario(";
 buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
@@ -54,15 +58,15 @@ buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 buttonDeleteProveedorLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarProveedor(";
 buttonDeleteProveedorRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 
-
 // genera la tabla de Consultas
 function crearTablaConsultas( elemento, tipo ) {
 
     // implementar una eleccion de tipo de consulta
+    let tipoConsulta = tipo === 2 || tipo === 3 ? 2 : 1;
 
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenConsultas?id=" + tipo,
+            "url": "/Peticiones/ResumenConsultas?id=" + tipoConsulta,
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
@@ -77,9 +81,6 @@ function crearTablaConsultas( elemento, tipo ) {
             { "data": "cedula_cliente" },
             { "data": "nombre_cliente" },
             { "data": "apellido_cliente" },
-            { "data": "descripcion_consulta" },
-            { "data": "fecha_generacion" },
-            { "data": "fecha_asignacion" },
             { "data": "nombre_usuario" },
             { "data": "consulta_estado" },
             {
@@ -88,7 +89,7 @@ function crearTablaConsultas( elemento, tipo ) {
                     if (tipo == 1)
                         return buttonPreviewConsultaLeft + data + buttonPreviewConsultaRigth;
                     if (tipo == 2)
-                        return buttonPreviewConsultaLeft + data + buttonPreviewConsultaRigth + buttonCancelQueryLeft + data + buttonCancelQueryRigth;
+                        return buttonModifyQueryLeft + data + buttonModifyQueryRigth + buttonCancelQueryLeft + data + buttonCancelQueryRigth;
                     if (tipo == 3)
                         return buttonFacturarConsultaLeft + data + buttonFacturarConsultaRigth + buttonCancelVentaLeft + data + buttonCancelVentaRigth;
                 },
@@ -99,16 +100,16 @@ function crearTablaConsultas( elemento, tipo ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
+            { width: "60px", targets: [0, 5] },
             { orderable: false, targets: [3] },
         ],
         "dom": tipo == 2 ? 'Brfltip' : 'rfltip',
         "buttons": [
             {
-                text: '+Registrar Nuevo Consulta',
+                text: '+Registrar Nueva Consulta',
                 className: "btn btn-success text-white",
                 action: function (e, dt, node, config) {
-                    console.log("Registrar Nueva Consulta")
+                    $('#modalBuscarCliente').modal('show');
                 }
             },
         ],
@@ -148,11 +149,14 @@ function crearTablaCompras( elemento ) {
             }
         },
         columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
+            { "data": "compra_id" },
+            { "data": "compra_usuario" },
+            { "data": "compra_fecha" },
+            { "data": "compra_pedido_id" },
+            { "data": "compra_numero_factura" },
+            { "data": "compra_total" },
             {
-                "data": "id",
+                "data": "compra_pedido_id",
                 "render": (data) => {
                         return buttonPreviewCompraLeft + data + buttonPreviewCompraRigth;
                 },
@@ -163,8 +167,8 @@ function crearTablaCompras( elemento ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
-            { orderable: false, targets: [3] },
+            { width: "60px", targets: [0, 5] },
+            { orderable: false, targets: [6] },
         ],
         "dom": 'rfltip',
         autoHeight: true,
@@ -202,11 +206,13 @@ function crearTablaVentas( elemento ) {
             }
         },
         columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
+            { "data": "venta_id" },
+            { "data": "venta_cedula_cliente" },
+            { "data": "venta_username" },
+            { "data": "venta_fecha" },
+            { "data": "venta_total" },
             {
-                "data": "id",
+                "data": "venta_id",
                 "render": (data) => {
                         return buttonPreviewVentaLeft + data + buttonPreviewVentaRigth
                 },
@@ -217,8 +223,8 @@ function crearTablaVentas( elemento ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
-            { orderable: false, targets: [3] },
+            { width: "60px", targets: [0, 5] },
+            { orderable: false, targets: [5] },
         ],
         "dom": 'rfltip',
         autoHeight: true,
@@ -256,13 +262,27 @@ function crearTablaUsuarios( elemento ) {
         columns: [
             { "data": "Usu_Id" },
             { "data": "Usu_UserName" },
-            { "data": "Usu_Password" },
-            { "data": "Usu_Rol_Id" },
-            { "data": "Usu_Status"},
+            {
+                "data": "Usu_Rol_Id",
+                "render": function (data, type, row) {
+                    switch (data) {
+                        case 1: return 'Admin'
+                        case 2: return 'Dentista'
+                        case 3: return 'Facturador'
+                        case 4: return 'Recepcion'
+                    }
+                }
+            },
+            {
+                "data": "Usu_Status",
+                "render": function (data, type, row) {
+                    return data === true ? 'Activo' : 'Inactivo'
+                }
+            },
             {
                 "data": "Usu_Id",
                 "render": (data) => {
-                    return buttonModifyUserLeft + data + buttonModifyUserRigth + buttonDeleteLeft + data + buttonDeleteRigth;
+                    return buttonModifyUserLeft + data + buttonModifyUserRigth;
                 },
                 "ordenable": false,
                 "searchable": false,
@@ -271,8 +291,8 @@ function crearTablaUsuarios( elemento ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
-            { orderable: false, targets: [3] },
+            { width: "60px", targets: [0, 4] },
+            { orderable: false, targets: [3,4] },
         ],
         "dom": 'Brfltip',
         "buttons": [
@@ -280,7 +300,7 @@ function crearTablaUsuarios( elemento ) {
                 text: '+Registrar Nuevo Usuario',
                 className: "btn btn-info text-white",
                 action: function (e, dt, node, config) {
-                    alert("Registrar Nuevo usuario")
+                    $('#modalBuscarEmpleado').modal('show');
                 }
             },
         ],
@@ -328,7 +348,7 @@ function crearTablaInsumos( elemento ) {
             {
                 "data": "pedido_id",
                 "render": (data) => {
-                    return botonPreviewInsumosLeft + data + botonPreviewInsumosRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
+                    return botonModifyInsumosLeft + data + botonModifyInsumosRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
                 },
                 "ordenable": false,
                 "searchable": false,
@@ -337,8 +357,8 @@ function crearTablaInsumos( elemento ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
-            { orderable: false, targets: [3] },
+            { width: "60px", targets: [0, 4] },
+            { orderable: false, targets: [5] },
         ],
         "dom": 'Brfltip',
         "buttons": [
@@ -346,7 +366,8 @@ function crearTablaInsumos( elemento ) {
                 text: '+Registrar Nuevo Insumo',
                 className: "btn btn-primary text-white",
                 action: function (e, dt, node, config) {
-                    console.log("Registrar Nuevo Insumo")
+                    $('#usuario_id').val(localStorage.getItem('user_id'));
+                    $('#modalRegistroInsumo').modal('show');
                 }
             },
         ],
@@ -434,8 +455,35 @@ function crearTablaProveedores( elemento ) {
 
 
 /*   Funciones de consultas   */
-function detallesConsulta(consultaID) {
-    console.log( "Detalles de Consulta -> " + consultaID)
+async function detallesConsulta(consultaID) {
+
+    const response = await fetch(
+        "/Peticiones/ObtenerConsulta?id=" + consultaID,
+        { ...requestOptions, method: "GET" }
+    );
+
+    if (response.ok) {
+        const { cedula_cliente, nombre_cliente,
+            apellido_cliente, descripcion_consulta,
+            fecha_generacion, fecha_asignacion,
+            nombre_usuario, consulta_estado } = await response.json();
+
+        $('#nombre').val(nombre_cliente);
+        $('#apellido').val(apellido_cliente);
+        $('#cedula').val(cedula_cliente);
+        $('#registrado').val(nombre_usuario);
+        $('#estado').val(consulta_estado);
+        $('#fecasig').val(fecha_asignacion);
+        $('#fecemi').val(fecha_generacion);
+        $('#floatingTextarea2').val(descripcion_consulta);
+
+        $('#modalRegistro').modal('show');
+    }
+    else {
+        console.log("error -> " + consultaID + " " + response.status)
+    }
+    
+
 }
 
 function cancelarConsulta(idConsulta) {
@@ -446,16 +494,65 @@ function facturarConsulta(consultaId) {
     console.log("Facturando Consulta -> " + consultaId)
 }
 
-function modificarConsulta(consultaId) {
-    console.log("Modificar Consulta -> " + consultaId)
+async function modificarConsulta(consultaId) {
+
+    const response = await fetch(
+        "/Peticiones/ObtenerConsulta?id=" + consultaId,
+        { ...requestOptions, method: "GET" }
+    );
+
+    if (response.ok) {
+        const { cedula_cliente, nombre_cliente,
+            apellido_cliente, descripcion_consulta,
+            fecha_generacion, fecha_asignacion,
+            nombre_usuario, consulta_estado, consulta_id } = await response.json();
+
+        $('#consulta_id').val(consulta_id);
+        $('#nombre').val(nombre_cliente);
+        $('#apellido').val(apellido_cliente);
+        $('#cedula').val(cedula_cliente);
+        $('#registrado').val(nombre_usuario);
+        $('#estado').val(consulta_estado);
+        $('#fecasig').val(fecha_asignacion);
+        $('#fecemi').val(fecha_generacion);
+        $('#textAreaUpdateQuery').val(descripcion_consulta);
+
+        $('#modalUpdate').modal('show');
+    }
+    else {
+        console.log("error -> " + consultaID + " " + response.status)
+    }
+
+    // console.log("Modificar Consulta -> " + consultaId)
 }
 
 // fin funciones de consultas
 
 
 /*    Funciones de Compras    */
-function detallesCompra(idCompra) {
-    console.log("Detalles de Compra -> " + idCompra )
+async function detallesCompra(idCompra) {
+
+    const response = await fetch("/Peticiones/ObtenerCompra?id=" + idCompra,
+        { ...requestOptions, method: "GET" });
+
+    if (response.ok) {
+        const { compra_usuario, compra_fecha, compra_numero_factura, pedido_cantidad,
+        pedido_fecha_registro, pedido_status, pedido_descripcion, compra_total } = await response.json();
+
+        $('#nombre_usuario').val(compra_usuario);
+        $('#compra_fecha').val(compra_fecha);
+        $('#numero_factura').val(compra_numero_factura);
+        $('#fecha_pedido').val(pedido_fecha_registro);
+        $('#estado').val(pedido_status);
+        $('#cantidad').val(pedido_cantidad);
+        $('#compra_total').val(compra_total);
+        $('#floatingTextarea2').val(pedido_descripcion);
+
+        $('#modalCompra').modal('show');
+    }
+    else {
+        console.log('Error al intentar consulta la compra -> ' + idCompra);
+    }
 }
 
 function cancelarCompra(idCompra) {
@@ -465,7 +562,30 @@ function cancelarCompra(idCompra) {
 // fin funciones de compras
 
 /*      Funciones de Ventas     */
-function detallesVenta(idVenta) {
+async function detallesVenta(idVenta) {
+
+    const response = await fetch("/Peticiones/ObtenerVenta?id=" + idVenta,
+        { ...requestOptions, method: "GET" });
+
+    if (response.ok) {
+        const { venta_nombre_cliente, venta_apellido_cliente, venta_cedula_cliente,
+            venta_username, venta_numero_factura, venta_fecha, venta_total, venta_tipo_pago } = await response.json();
+
+        $('#nombre_cliente').val(venta_nombre_cliente);
+        $('#apellido_cliente').val(venta_apellido_cliente);
+        $('#cedula_cliente').val(venta_cedula_cliente);
+        $('#nombre_usuario').val(venta_username);
+        $('#numero_factura').val(venta_numero_factura);
+        $('#fecha').val(venta_fecha);
+        $('#venta_total').val(venta_total);
+        $('#tipo_pago').val(venta_tipo_pago);
+
+        $('#modalVenta').modal('show');
+    }
+    else {
+        console.log('Error al consulta detalles compra -> ' + reponse.status);
+    }
+
     console.log("Detalles de la Venta -> " + idVenta)
 }
 
@@ -475,7 +595,29 @@ function cancelarVenta(idVenta) {
 // fin funciones ventas
 
 /*   funciones de insumos    */
-function detallesDeInsumo(idInsumo) {
+async function updateDeInsumo(idInsumo) {
+
+    const response = await fetch("/Peticiones/ObtenerInsumo?id=" + idInsumo,
+        { ...requestOptions, method: "GET" });
+
+    if (response.ok) {
+        const { pedido_id, pedido_cantidad, pedido_descripcion,
+            pedido_username, pedido_fecha, pedido_status } = await response.json();
+
+        $('#pedido_id_update').val(pedido_id)
+        $('#username_update').val(pedido_username);
+        $('#fecha').val(pedido_fecha);
+        $('#cantidad_update').val(pedido_cantidad);
+        $('#estado').val(pedido_status);
+        $('#descripcion_pedido_update').val(pedido_descripcion);
+
+        $('#modalUpdateInsumo').modal('show');
+    }
+    else {
+        console.log('Error al intentar consulta la compra -> ' + idCompra);
+    }
+
+
     console.log("Detalles del Insumo -> " + idInsumo)
 }
 
@@ -485,8 +627,23 @@ function cancelarInsumo(idInsumo) {
 // fin funciones de Insumos
 
 // funciones relacionadas con usuarios
-function modificarUsuario(idUsuario) {
-    console.log("Modificando Usuario -> " + idUsuario);
+async function modificarUsuario(idUsuario) {
+
+    // solicitar la informacion al backend llenar el modal con los datos
+    const response = await fetch("/Peticiones/ResumenUsuarios?id=" + idUsuario,
+        { ...requestOptions, method: "GET" });
+
+    const usuarios = await response.json();
+    if (usuarios.length > 0) {
+        const { Usu_UserName, Usu_Rol_Id, Usu_Status, Usu_Emp_Id } = usuarios[0];
+        $('#user_update').val(Usu_UserName);
+        $('#rol_update').val(Usu_Rol_Id);
+        $('#status').val(Usu_Status ? "1" : "0");
+        $('#idEmpleado_update').val(Usu_Emp_Id);
+        $('#modalUpdate').modal('show'); // mostrar el modal luego de ser rellenado
+    } else {
+        console.log('No se encontró ningún usuario');
+    }
 }
 
 function eliminarUsuario(idUsuario) {

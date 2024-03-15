@@ -20,14 +20,6 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Odontologia_Backend.Class.HandlerCustomer.RegistrarCliente(Odontologia_Backend.Models.Cliente)">
-            <summary>
-            Registra un nuevo cliente.
-            </summary>
-            <param name="cliente"></param>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
-        </member>
         <member name="M:Odontologia_Backend.Class.HandlerEmployees.ObtenerEmpleado(System.String)">
             <summary>
             Obtiene un empleado mediante su identificacion o cedula
@@ -44,7 +36,7 @@
             <returns>""</returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ObtenerConsultas(System.String)">
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ObtenerConsultas(System.Int32)">
             <summary>
             Devuelve una lista de consultas segun el estatus ingresado.
             </summary>
@@ -52,9 +44,23 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ObtenerConsulta(System.Int32)">
+            <summary>
+            Devuelve una consulta especifica filtrada por su id
+            </summary>
+            <param name="id_consulta"></param>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Class.HandlerQuerys.RegistrarConsulta(Odontologia_Backend.Models.Consulta)">
             <summary>
             Registra una nueva consulta en la base de datos
+            </summary>
+            <param name="consulta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ActualizarConsulta(Odontologia_Backend.Models.Consulta)">
+            <summary>
+            Actualiza una consulta con respecto a la fecha y description
             </summary>
             <param name="consulta"></param>
             <returns></returns>
@@ -74,11 +80,11 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Odontologia_Backend.Class.HandlerUsers.ObtenerUsuario(System.String)">
+        <member name="M:Odontologia_Backend.Class.HandlerUsers.ObtenerUsuario(System.Int32)">
             <summary>
             Devuelve Un usuario filtrando la busqueda por su nombre de usuario
             </summary>
-            <param name="user"></param>
+            <param name="user_id"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>

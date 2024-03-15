@@ -25,14 +25,32 @@ namespace Odontologia_Backend.Controllers
         {
             try
             {
-                List<Compra> listaDeCompras = await this.recursos_Compras.ObtenerCompras();
+                List<Object> listaDeCompras = await this.recursos_Compras.ObtenerCompras();
 
-                return listaDeCompras.Count > 0 ? Ok(listaDeCompras) : BadRequest();  
+                return listaDeCompras.Count > 0 ? Ok(listaDeCompras) : NotFound("No hay registros de compras");  
             }
             catch (Exception ex)
             {
                 return Problem(ex.Message, default, 500);
             }
+        }
+
+        [HttpGet("obtener_compra")]
+        public async Task<ActionResult> GetCompra([FromQuery] int v1 = -1 )
+        {
+            try
+            {
+                if (v1 == -1) return BadRequest("Solicitud no procesada por favor ingrese el numero de identificacion del pedido");
+
+                Object? statusCompra = await this.recursos_Compras.ObtenerCompra(v1);
+
+                return statusCompra != null ? Ok(statusCompra) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+
         }
 
         /// <summary>
