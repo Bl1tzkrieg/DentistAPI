@@ -21,6 +21,7 @@ namespace Odontologia_Backend.Class
                 return await this.context_Mysql.compras
                     .Join(this.context_Mysql.pedido_insumo, c => c.Comp_Ped_Id, p => p.Ped_Id, (compra,pedido) => new { compra, pedido })
                     .Join(this.context_Mysql.usuarios, o => o.pedido.Ped_Usu_Id, u => u.Usu_Id, ( p2, usuario) => new { p2.compra, p2.pedido, usuario })
+                    .Where( q => q.pedido.Ped_Status.Equals("FACTURADO"))
                     .Select(x => new
                     {
                         compra_id = x.compra.Comp_Id,

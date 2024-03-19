@@ -10,7 +10,7 @@ const requestOptions = {
 
 $(document).ready(function () {
 
-    tabla_de_insumos = crearTablaInsumos("#tbinsumos", 2);
+    tabla_de_insumos = crearTablaInsumos("#tbinsumos", 1);
 
     $("#formularioRegistroInsumo").submit(async function (event) {
         event.preventDefault();

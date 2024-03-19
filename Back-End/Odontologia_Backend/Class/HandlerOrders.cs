@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Odontologia_Backend.Data;
 using Odontologia_Backend.DTOs;
 using Odontologia_Backend.Models;
@@ -21,7 +22,7 @@ namespace Odontologia_Backend.Class
                 List<Object> listaDePedidos = await this.context_Mysql.pedido_insumo
                     .Join(this.context_Mysql.usuarios, i => i.Ped_Usu_Id, u => u.Usu_Id,
                     (pedido, usuario) => new { pedido, usuario })
-                    .Where(q => true)
+                    .Where(q => q.pedido.Ped_Status.Equals("PENDIENTE"))
                     .Select( x => new
                     {
                         pedido_id = x.pedido.Ped_Id,
@@ -66,7 +67,7 @@ namespace Odontologia_Backend.Class
             }
         }
 
-        public async Task<(int, string)> RegistrarPedido( Order_DTO pedido )
+        public async Task<(int,string)> RegistrarPedido(Order_DTO pedido)
         {
             try
             {
@@ -90,7 +91,7 @@ namespace Odontologia_Backend.Class
             }
         }
 
-        public async Task<(int, string)> ActualizarPedido( OrderUpdate_DTO pedido )
+        public async Task<(int,string)> ActualizarPedido(OrderUpdate_DTO pedido)
         {
             try
             {
@@ -108,6 +109,46 @@ namespace Odontologia_Backend.Class
             catch ( Exception )
             {
                 throw;
+            }
+        }
+
+        public async Task<(int,string)> FacturarPedido(Invoice_Order_DTO pedido)
+        {
+            using (IDbContextTransaction transactionMySql = this.context_Mysql.Database.BeginTransaction())
+            {
+                try
+                {
+                    // obtener el pedido de pedidos_insumos
+                    Order? statusPedido = await this.context_Mysql.pedido_insumo.FirstOrDefaultAsync(x => x.Ped_Id.Equals(pedido.pedido_id));
+
+                    if (statusPedido == null) return (0, "El pedido no se encuentra registrado.");
+
+                    if (statusPedido.Ped_Status.Equals("FACTURADO")) return (0, "El pedido ya ha sido facturado");
+
+                    Compra newShopping = new()
+                    {
+                        Comp_Usu_Id = pedido.usuario_id,
+                        Comp_Fecha = DateTime.Now,
+                        Comp_Ped_Id = pedido.pedido_id,
+                        Comp_NroFactura = pedido.numero_factura,
+                        Comp_Total = pedido.monto_total
+                    };
+
+                    await this.context_Mysql.compras.AddAsync(newShopping);
+                    await this.context_Mysql.SaveChangesAsync();
+
+                    statusPedido.Ped_Status = "FACTURADO";
+                    await this.context_Mysql.SaveChangesAsync();
+
+                    // si no se han levantado excepciones o errores por incongruencias etc. procedemos a hacer el commit.
+                    await transactionMySql.CommitAsync();
+                    return (1, "Pedido facturado con exito");
+                }
+                catch (Exception)
+                {
+                    await transactionMySql.RollbackAsync();
+                    throw;
+                }
             }
         }
 

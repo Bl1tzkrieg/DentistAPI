@@ -44,12 +44,5 @@ namespace AplicacionWebFrontend.Controllers
         {
             return View();
         }
-
-        // GET: Facturador
-        [PermisosRol(rol: 3)]
-        public ActionResult Proveedores()
-        {
-            return View();
-        }
     }
 }

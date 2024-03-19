@@ -12,5 +12,6 @@ namespace Odontologia_Backend.Models
         public DateTime Consult_FecAsig { get; set; }
         public DateTime Consult_FecGen { get; set; }
         public string Consult_Status { get; set; }
+        public string Consult_Facturada { get; set; }
     }
 }

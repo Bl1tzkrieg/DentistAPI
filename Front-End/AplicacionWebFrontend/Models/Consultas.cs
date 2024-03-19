@@ -17,5 +17,7 @@ namespace AplicacionWebFrontend.Models
         public string fecha_asignacion { get; set; }
         public string nombre_usuario { get; set; }
         public string consulta_estado { get; set; }
+        public int consulta_id_cliente { get; set; }
+        public string consulta_facturada { get; set; }
     }
 }

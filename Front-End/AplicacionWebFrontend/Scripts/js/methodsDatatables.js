@@ -43,6 +43,9 @@ buttonCancelVentaRigth = ")'><i class='fa-solid fa-xmark fa-lg'></i></button>"
 buttonFacturarConsultaLeft = "<button class='btn btn-success btn-sm' type='button' onclick='facturarConsulta(";
 buttonFacturarConsultaRigth = ")'><i class='fa-solid fa-square-check fa-lg'></i></button>";
 
+buttonFacturarInsumoLeft = "<button class='btn btn-success btn-sm' type='button' onclick='facturarCompra(";
+buttonFacturarInsumoRigth = ")'><i class='fa-solid fa-square-check fa-lg'></i></button>";
+
 // button for modify user
 buttonModifyUserLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='modificarUsuario(";
 buttonModifyUserRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
@@ -55,14 +58,12 @@ buttonModifyQueryRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 buttonDeleteLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarUsuario(";
 buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 
-buttonDeleteProveedorLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarProveedor(";
-buttonDeleteProveedorRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 
 // genera la tabla de Consultas
 function crearTablaConsultas( elemento, tipo ) {
 
     // implementar una eleccion de tipo de consulta
-    let tipoConsulta = tipo === 2 || tipo === 3 ? 2 : 1;
+    let tipoConsulta = tipo === 2 || tipo === 3 ? tipo : 1;
 
     return $(elemento).DataTable({
         ajax: {
@@ -323,9 +324,10 @@ function crearTablaUsuarios( elemento ) {
 }
 
 // genera la tabla de insumos
-function crearTablaInsumos( elemento ) {
+function crearTablaInsumos( elemento, tipo ) {
 
     // implementar una eleccion de tipo de consulta
+    let opc = tipo === 2 ? tipo : 1;
 
     return $(elemento).DataTable({
         ajax: {
@@ -348,7 +350,10 @@ function crearTablaInsumos( elemento ) {
             {
                 "data": "pedido_id",
                 "render": (data) => {
-                    return botonModifyInsumosLeft + data + botonModifyInsumosRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
+                    if (opc === 1)
+                        return botonModifyInsumosLeft + data + botonModifyInsumosRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
+                    else
+                        return buttonFacturarInsumoLeft + data + buttonFacturarInsumoRigth + buttonCancelInsumoLeft + data + buttonCancelInsumoRigth;
                 },
                 "ordenable": false,
                 "searchable": false,
@@ -390,70 +395,6 @@ function crearTablaInsumos( elemento ) {
 
 }
 
-// genera la tabla de proveedores
-function crearTablaProveedores( elemento ) {
-
-    return $(elemento).DataTable({
-        ajax: {
-            "url": "/Peticiones/ResumenProveedores",
-            "type": "GET",
-            "datatype": "json",
-            "dataSrc": "",
-            "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
-                // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
-            }
-        },
-        columns: [
-            { "data": "userId" },
-            { "data": "title" },
-            { "data": "body" },
-            {
-                "data": "id",
-                "render": (data) => {
-                    return buttonProveedorLeft + data + buttonProveedorRigth + buttonDeleteProveedorLeft + data + buttonDeleteProveedorRigth;
-                },
-                "ordenable": false,
-                "searchable": false,
-                "width": "150px",
-            },
-        ],
-        columnDefs: [
-            { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 3] },
-            { orderable: false, targets: [3] },
-        ],
-        "dom": 'Brfltip',
-        "buttons": [
-            {
-                text: '+Registrar Nuevo Proveedor',
-                className: "btn btn-primary text-white",
-                action: function (e, dt, node, config) {
-                    console.log("Registrar Nuevo Proveedor")
-                }
-            },
-        ],
-        autoHeight: true,
-        responsive: true,
-        processing: true,
-        language: {
-            // zeroRecords: "No hay registros disponibles.",
-            infoEmpty: "Sin Registros",
-            search: "Buscar",
-            processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
-            paginate: {
-                next: "<i class='fa-solid fa-arrow-right fa-2xs'></i>",
-                previous: "<i class='fa-solid fa-arrow-left fa-2xs'></i>"
-            },
-            info: "Mostrando _START_ a _END_ de _TOTAL_ elementos",
-            lengthMenu: "Mostrando _MENU_ filas",
-        }
-    });
-
-}
-
-
 /*   Funciones de consultas   */
 async function detallesConsulta(consultaID) {
 
@@ -490,8 +431,37 @@ function cancelarConsulta(idConsulta) {
     console.log("Cancelando Consulta -> " + idConsulta);
 }
 
-function facturarConsulta(consultaId) {
-    console.log("Facturando Consulta -> " + consultaId)
+async function facturarConsulta(consultaId) {
+
+    // realizar la peticion para obtener los datos de la consulta a facturar
+
+    const response = await fetch(
+        "/Peticiones/ObtenerConsulta?id=" + consultaId,
+        { ...requestOptions, method: "GET" }
+    );
+
+    if (response.ok) {
+        const { consulta_id_cliente, cedula_cliente, nombre_cliente,
+            apellido_cliente, fecha_asignacion, consulta_estado,
+            consulta_facturada, nombre_usuario
+        } = await response.json();
+
+        $('#consulta_id').val(consultaId)
+        $('#cliente_cedula').val(cedula_cliente);
+        $('#cliente_id').val(consulta_id_cliente);
+        $('#consulta_fecha').val(fecha_asignacion);
+        $('#nombre_cliente').val(nombre_cliente);
+        $('#apellido_cliente').val(apellido_cliente);
+        $('#estatus_factura').val(consulta_facturada);
+        $('#nombre_usuario').val(nombre_usuario);
+
+        $('#modalFacturarConsulta').modal('show');
+
+        //configurar el submit en su archivo js correspondiente
+    } else {
+        alert('Ha ocurrido un error al intentar consultar la data')
+    }
+
 }
 
 async function modificarConsulta(consultaId) {
@@ -553,6 +523,33 @@ async function detallesCompra(idCompra) {
     else {
         console.log('Error al intentar consulta la compra -> ' + idCompra);
     }
+}
+
+async function facturarCompra(idCompra) {
+
+    const response = await fetch(
+        "/Peticiones/ObtenerInsumo?id=" + idCompra,
+        { ...requestOptions, method: "GET" }
+    );
+
+    if (response.ok) {
+        const { pedido_id, pedido_cantidad, pedido_descripcion,
+            pedido_username, pedido_fecha, pedido_status }
+            = await response.json();
+
+        $('#username_insumo').val(pedido_username);
+        $('#pedido_id').val(pedido_id);
+        $('#cantidad_insumo').val(pedido_cantidad);
+        $('#fecha').val(pedido_fecha);
+        $('#status').val(pedido_status);
+        $('#descripcion_pedido_insumo').val(pedido_descripcion);
+
+        $('#modalFacturarInsumo').modal('show')
+    }
+    else {
+        alert('Error -> ' + response.status);
+    }
+
 }
 
 function cancelarCompra(idCompra) {
@@ -651,15 +648,6 @@ function eliminarUsuario(idUsuario) {
 }
 // fin funciones de Usuarios
 
-// funciones de proveedores
-function detallesDeProveedor( idProveedor ) {
-    console.log("Detalles de Proveedor : " + idProveedor);
-}
-
-function eliminarProveedor( idProveedor ) {
-    console.log("Eliminando Proveedor : " + idProveedor)
-}
-// fin funciones de proveedores
 
 
 

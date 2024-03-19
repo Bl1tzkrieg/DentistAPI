@@ -87,5 +87,25 @@ namespace Odontologia_Backend.Controllers
                 return Problem(ex.Message, default, 500);
             }
         }
+
+        [HttpPost("facturar_pedido")]
+        public async Task<ActionResult> FacturarPedido([FromBody] Invoice_Order_DTO reqBody)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Pedidos.FacturarPedido(reqBody);
+
+                return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
     }
 }

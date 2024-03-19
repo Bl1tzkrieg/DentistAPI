@@ -65,6 +65,20 @@
             <param name="consulta"></param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.FacturarConsulta(Odontologia_Backend.DTOs.Query_Bill_Consultation_DTO)">
+            <summary>
+            Factura una consulta.
+            </summary>
+            <param name="consulta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.CancelarConsulta(System.Int32)">
+            <summary>
+            Actualiza el status a una consulta como cancelada.
+            </summary>
+            <param name="consulta_id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Class.HandlerSales.ObtenerVentas">
             <summary>
             Devuelve una lista de todas las ventas realizadas

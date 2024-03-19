@@ -127,7 +127,7 @@ namespace AplicacionWebFrontend.Controllers
             }
         }
 
-        public async Task<ActionResult> RegistrarConsulta( RegistrarConsulta_DTO query)
+        public async Task<ActionResult> RegistrarConsulta(RegistrarConsulta_DTO query)
         {
             try
             {
@@ -170,6 +170,56 @@ namespace AplicacionWebFrontend.Controllers
             }
         }
 
+        public async Task<ActionResult> FacturarConsulta(FacturarConsulta_DTO query)
+        {
+            try
+            {
+                var api_Request = new RestClient("https://localhost:7091/");
+                var request = new RestRequest("api/Querys/facturar_consulta", Method.Post);
+
+                request.AddHeader("Content-Type", "application/json");
+                request.AddJsonBody(new
+                {
+                    query.cliente_id,
+                    query.numero_factura,
+                    query.usuario_id,
+                    query.tipo_pago,
+                    query.consulta_id,
+                    query.total_pagar,
+                });
+
+                var respuesta = await api_Request.PostAsync(request);
+
+                if (respuesta.StatusCode == 0)
+                {
+                    throw new Exception(respuesta.ErrorMessage);
+                }
+
+                if (respuesta.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                {
+                    throw new Exception(respuesta.StatusDescription);
+                }
+
+                if (respuesta.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "Datos inválidos o incompletos.");
+                }
+
+
+                // Convert the response content to a JSON string
+                var json = respuesta.Content;
+
+                // Deserialize the JSON string to a list of objects
+                var data = JsonConvert.DeserializeObject(json);
+
+                // Return the data as a JsonResult
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         // COMPRAS
 
@@ -466,10 +516,56 @@ namespace AplicacionWebFrontend.Controllers
                 throw ex;
             }
         }
+        public async Task<ActionResult> FacturarInsumo(FacturarInsumo_DTO pedido)
+        {
+            try
+            {
+                var api_Request = new RestClient("https://localhost:7091/");
+                var request = new RestRequest("api/Orders/facturar_pedido", Method.Post);
+
+                request.AddHeader("Content-Type", "application/json");
+                request.AddJsonBody(new
+                {
+                    pedido.pedido_id,
+                    pedido.usuario_id,
+                    pedido.numero_factura,
+                    pedido.monto_total
+                });
+
+                var respuesta = await api_Request.PostAsync(request);
+
+                if (respuesta.StatusCode == 0)
+                {
+                    throw new Exception(respuesta.ErrorMessage);
+                }
+
+                if (respuesta.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                {
+                    throw new Exception(respuesta.StatusDescription);
+                }
+
+                if (respuesta.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest, "Datos inválidos o incompletos.");
+                }
+
+                // Convert the response content to a JSON string
+                var json = respuesta.Content;
+
+                // Deserialize the JSON string to a list of objects
+                var data = JsonConvert.DeserializeObject(json);
+
+                // Return the data as a JsonResult
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
-
-
+        // PROVEEDORES
 
         // GET: ResumenProveedores
         public async Task<ActionResult> ResumenProveedores()

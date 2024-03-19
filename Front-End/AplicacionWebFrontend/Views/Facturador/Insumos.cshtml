@@ -15,14 +15,93 @@
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbinsumos">
             <thead class="table-primary">
                 <tr>
-                    <th scope="col" colspan="1">userId</th>
-                    <th scope="col" colspan="1">title</th>
-                    <th scope="col" colspan="1">body</th>
-                    <th scope="col" colspan="1">Ver</th>
+                    <th scope="col" colspan="1">Pedido Id</th>
+                    <th scope="col" colspan="1">Cantidad</th>
+                    <th scope="col" colspan="1">Descripción</th>
+                    <th scope="col" colspan="1">Registrado Por</th>
+                    <th scope="col" colspan="1">Fecha</th>
+                    <th scope="col" colspan="1">Accion</th>
                 </tr>
             </thead>
         </table>
     </div>
+
+    <!-- Modal registro de insumo -->
+    <div class="modal fade" id="modalRegistroInsumo" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Registrar Insumo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioRegistroInsumo">
+                        <div class="mb-3">
+                            <label for="usuario_id">Usuario Id</label>
+                            <input type="text" class="form-control" id="usuario_id" disabled>
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" min="1" max="100" class="form-control" id="cantidad" required>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <textarea class="form-control" required id="descripcion_pedido" style="height: 100px; resize:none;"></textarea>
+                            <label for="descripcion_pedido">Descripcion del pedido</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal facturar insumo -->
+    <div class="modal fade" id="modalFacturarInsumo" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Facturar Insumo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioFacturarInsumo">
+                        <div class="mb-3">
+                            <label for="username_insumo">Registrado por</label>
+                            <input type="text" class="form-control" id="username_insumo" disabled>
+                            <label for="pedido_id">Pedido</label>
+                            <input type="text" class="form-control" id="pedido_id" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad_insumo">Cantidad</label>
+                            <input type="text" class="form-control" id="cantidad_insumo" disabled>
+                            <label for="fecha">Fecha</label>
+                            <input type="text" class="form-control" id="fecha" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status">Status</label>
+                            <input type="text" class="form-control" id="status" disabled>
+                            <label for="numero_factura">Numero de factura</label>
+                            <input type="text" class="form-control" id="numero_factura" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="monto">Monto total</label>
+                            <input type="text" class="form-control" id="monto" required>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <textarea class="form-control" disabled id="descripcion_pedido_insumo" style="height: 100px; resize:none;"></textarea>
+                            <label for="descripcion_pedido_insumo">Descripcion del pedido</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Facturar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 @section scripts{

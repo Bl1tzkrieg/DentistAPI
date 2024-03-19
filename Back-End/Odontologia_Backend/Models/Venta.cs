@@ -11,5 +11,6 @@ namespace Odontologia_Backend.Models
         public string Venta_NroFactura { get; set; }
         public short Venta_Usu_Id { get; set; }
         public int Venta_Vd_Id { get; set; }
+        public int Venta_Consult_Id { get; set; }
     }
 }

@@ -182,6 +182,8 @@
     <Compile Include="DTO\ActualizarConsulta_DTO.cs" />
     <Compile Include="DTO\ActualizarInsumo_DTO.cs" />
     <Compile Include="DTO\ActualizarUsuario_DTO.cs" />
+    <Compile Include="DTO\FacturarConsulta_DTO.cs" />
+    <Compile Include="DTO\FacturarInsumo_DTO.cs" />
     <Compile Include="DTO\RegistrarConsulta_DTO.cs" />
     <Compile Include="DTO\RegistrarInsumo_DTO.cs" />
     <Compile Include="DTO\RegistroUsuario_DTO.cs" />
@@ -511,7 +513,6 @@
     <Content Include="Scripts\js\Facturador\compras.js" />
     <Content Include="Scripts\js\Facturador\consultas.js" />
     <Content Include="Scripts\js\Facturador\insumos.js" />
-    <Content Include="Scripts\js\Facturador\proveedores.js" />
     <Content Include="Scripts\js\Facturador\ventas.js" />
     <Content Include="Scripts\js\methodsDatatables.js" />
     <Content Include="Scripts\js\Recepcion\consultas.js" />
@@ -542,7 +543,6 @@
     <Content Include="Views\Facturador\Compras.cshtml" />
     <Content Include="Views\Facturador\Ventas.cshtml" />
     <Content Include="Views\Facturador\Insumos.cshtml" />
-    <Content Include="Views\Facturador\Proveedores.cshtml" />
     <Content Include="Views\Recepcion\Index.cshtml" />
     <Content Include="Views\Recepcion\Consultas.cshtml" />
   </ItemGroup>

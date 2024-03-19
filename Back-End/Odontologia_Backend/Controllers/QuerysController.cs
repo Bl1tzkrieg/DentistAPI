@@ -68,7 +68,8 @@ namespace Odontologia_Backend.Controllers
                     Consult_Usu_Id = query.id_usuario,
                     Consult_FecAsig = DateTime.Parse(query.fecha_asignacion),
                     Consult_FecGen = DateTime.Now,
-                    Consult_Status = "PENDIENTE"
+                    Consult_Status = "PENDIENTE",
+                    Consult_Facturada = "POR FACTURAR"
                 });
 
                 return statusRegistro > 0 ? Ok(message) : BadRequest();
@@ -98,6 +99,41 @@ namespace Odontologia_Backend.Controllers
                 return status > 0 ? Ok(message) : BadRequest(message);
             }
             catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPatch("cancelar_consulta")]
+        public async Task<ActionResult> CancelarConsulta([FromQuery] int v1)
+        {
+            try 
+            {
+                (int status, string message) = await this.recursos_Consultas.CancelarConsulta(v1);
+
+                return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPost("facturar_consulta")]
+        public async Task<ActionResult> Facturar_Consulta([FromBody] Query_Bill_Consultation_DTO reqBody )
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
+                }
+
+                (int status, string message) = await this.recursos_Consultas.FacturarConsulta(reqBody);
+
+                return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch ( Exception ex )
             {
                 return Problem(ex.Message, default, 500);
             }
