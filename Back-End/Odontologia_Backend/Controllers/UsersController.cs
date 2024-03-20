@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Usuario> user = await this.recursos_Usuarios.ObtenerUsuario(v1);
 
-                return user.Count > 0 ? Ok(user) : BadRequest("No se encontro ningun usuario con ese numero de id o la lista esta vacia");
+                return user.Count > 0 ? Ok(user) : NotFound(user);
             }
             catch (Exception ex)
             {

@@ -25,7 +25,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> statusPedidos = await this.recursos_Pedidos.ObtenerPedidos();
 
-                return statusPedidos.Count > 0 ? Ok(statusPedidos) : NotFound("No hay pedidos disponibles");
+                return statusPedidos.Count > 0 ? Ok(statusPedidos) : NotFound(statusPedidos);
             }
             catch (Exception ex)
             {

@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeCompras = await this.recursos_Compras.ObtenerCompras();
 
-                return listaDeCompras.Count > 0 ? Ok(listaDeCompras) : NotFound("No hay registros de compras");  
+                return listaDeCompras.Count > 0 ? Ok(listaDeCompras) : NotFound(listaDeCompras);  
             }
             catch (Exception ex)
             {

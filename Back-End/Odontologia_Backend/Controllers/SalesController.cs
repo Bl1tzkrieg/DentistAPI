@@ -28,7 +28,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeVentas = await this.recursos_Ventas.ObtenerVentas();
 
-                return listaDeVentas.Count > 0 ? Ok(listaDeVentas) : BadRequest();
+                return listaDeVentas.Count > 0 ? Ok(listaDeVentas) : NotFound(listaDeVentas);
             }
             catch (Exception ex)
             {

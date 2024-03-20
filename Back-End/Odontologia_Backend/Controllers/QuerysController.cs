@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeConsultas = await this.recursos_Consultas.ObtenerConsultas(v1);
 
-                return listaDeConsultas.Count > 0 ? Ok(listaDeConsultas) : BadRequest("lista vacia");
+                return listaDeConsultas.Count > 0 ? Ok(listaDeConsultas) : NotFound(listaDeConsultas);
             }
             catch (Exception ex)
             {
