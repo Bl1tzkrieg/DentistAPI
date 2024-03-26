@@ -8,7 +8,9 @@ const requestOptions = {
     },
 };
 
-$(document).ready(function () {
+$(document).ready(async function () {
+
+    $('#alerta_error').hide();
 
     tabla_de_insumos = crearTablaInsumos("#tbinsumos", 2);
 
@@ -26,16 +28,20 @@ $(document).ready(function () {
             pedido_descripcion
         });
 
-        const response = await fetch("/Peticiones/RegistrarInsumo",
+        const response = await fetch("https://localhost:7091/api/Orders/registrar_pedido",
             { ...requestOptions, method: "POST", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 201) {
+            alert("Pedido registrado con exito!");
             location.reload();
-            alert(resp)
+        }
+        else if( response.status === 400 ) {
+            alert("Eventualidad inesperada al intentar registrar el pedido.");
+            location.reload();
         }
         else {
-            console.log('Error al registrar el insumo -> ' + response.status)
+            alert("Error -> " + response.status);
+            location.reload();
         }
 
     });
@@ -55,19 +61,40 @@ $(document).ready(function () {
             monto_total
         })
 
-        const response = await fetch("/Peticiones/FacturarInsumo",
+        const response = await fetch("https://localhost:7091/api/Orders/facturar_pedido",
             { ...requestOptions, method: "POST", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 201) {
+            alert("El pedido ha sido facturado con exito!");
             location.reload();
-            alert(resp);
+        }
+        else if (response.status === 400) {
+            alert("Eventualidad inesperada al intentar facturar el pedido");
+            location.reload();
         }
         else {
-            alert(resp.status);
+            alert("Error " + response.status);
+            location.reload();
         }
 
     });
 
+    $('#insumos_aprobados').text(await obtenerCantidadPedidosPorEstatus(1));
+
+    $('#insumos_cancelados').text(await obtenerCantidadPedidosPorEstatus(2));
 
 }); // fin
+
+async function obtenerCantidadPedidosPorEstatus(tipo) {
+    const response = await fetch("https://localhost:7091/api/Orders/obtener_cantidad_pedidos_por_estatus?v1=" + tipo,
+        { ...requestOptions, method: "GET" });
+
+    if (response.status === 200) {
+        const cantidad = await response.json();
+        return cantidad;
+    }
+
+    return 0;
+}
+
+

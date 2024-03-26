@@ -45,7 +45,7 @@ namespace Odontologia_Backend.Controllers
                 Usuario? usuario = await accessUser.GetUser(user.username, user.password);
                 //DateTime _ValidToken = DateTime.Now.AddDays(1);
 
-                if (usuario is null) return Unauthorized("Usuario o password Invalidos");
+                if (usuario is null) return Unauthorized("Usuario o password invalidas");
 
                 if (usuario.Usu_Status.Equals(false)) return Unauthorized("tus privilegios han sido anulados");
 
@@ -70,7 +70,14 @@ namespace Odontologia_Backend.Controllers
                         //expires: _ValidToken,
                         signingCredentials: signIn);
 
-                return Ok( new { rol = usuario.Usu_Rol_Id, user_id = usuario.Usu_Id, username = usuario.Usu_UserName, status = usuario.Usu_Status, token = new JwtSecurityTokenHandler().WriteToken(token) } );
+                return Ok( new { 
+                    rol = usuario.Usu_Rol_Id, 
+                    user_id = usuario.Usu_Id, 
+                    username = usuario.Usu_UserName, 
+                    status = usuario.Usu_Status, 
+                    token = new JwtSecurityTokenHandler().WriteToken(token), 
+                    message = "Acceso aceptado" 
+                });
             }
             catch (Exception ex)
             {

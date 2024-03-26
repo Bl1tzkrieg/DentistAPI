@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Usuario> user = await this.recursos_Usuarios.ObtenerUsuario(v1);
 
-                return user.Count > 0 ? Ok(user) : NotFound(user);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace Odontologia_Backend.Controllers
         }
 
         [HttpPost("registrar_usuario")]
-        public async Task<ActionResult> PostUsuario(User_DTO user)
+        public async Task<ActionResult> PostUsuario([FromBody] User_DTO user)
         {
             try
             {
@@ -45,15 +45,9 @@ namespace Odontologia_Backend.Controllers
                     return BadRequest(ErrorHelper.GetModelStateErrors(ModelState));
                 }
 
-                (int statusRegistro, string message) = await this.recursos_Usuarios.RegistrarUsuario(new Usuario
-                {
-                    Usu_UserName = user.username,
-                    Usu_Password = user.password,
-                    Usu_Rol_Id = user.rol,
-                    Usu_Emp_Id = user.empleado_id
-                });
+                (int statusRegistro, string message) = await this.recursos_Usuarios.RegistrarUsuario( user );
 
-                return statusRegistro > 0 ? Ok(message) : BadRequest();
+                return statusRegistro > 0 ? StatusCode(201) : BadRequest();
             }
             catch (Exception ex)
             {
@@ -79,7 +73,7 @@ namespace Odontologia_Backend.Controllers
                     Usu_Rol_Id = user.rol,
                 });
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? Ok() : BadRequest();
             }
             catch (Exception ex)
             {

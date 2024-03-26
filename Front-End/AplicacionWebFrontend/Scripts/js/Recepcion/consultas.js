@@ -11,10 +11,13 @@ const requestOptions = {
 
 $(document).ready(function () {
 
+    $('#alerta_error').hide();
+
     tabla_de_consultas = crearTablaConsultas("#tbconsultas", 2);
 
-    $('#buscarCli').click(function () {
-        let id = $('#identificacion').val()
+    $('#formularioBuscarCliente').submit(function (e) {
+        e.preventDefault();
+        let id = $('#tipo_documento').val() + $('#identificacion').val();
         clearModal1();
         buscarCliente(id);
     });
@@ -34,21 +37,25 @@ $(document).ready(function () {
             fecha_asignacion
         });
 
-        const response = await fetch("/Peticiones/RegistrarConsulta",
+        const response = await fetch("https://localhost:7091/api/Querys/registrar_consulta",
             { ...requestOptions, method: "POST", body: data }
         );
 
-        if (response.ok) {
-            // Procesar data
-            const resp = await response.json();
+        if (response.status === 201) {
+            alert("Consulta registrada correctamente!");
             location.reload();
-            alert(resp);
-        } else {
+        }
+        else if (response.status === 400) {
+            alert("Eventualidad inesperada al intentar registrar la consulta!");
+            location.reload();
+        }
+        else {
             // Manejar error HTTP
             alert('Error -> ' + response.status)
+            location.reload();
         }
 
-}); // fin
+    })
 
     $('#formularioUpdate').submit(async function (event) {
 
@@ -57,28 +64,68 @@ $(document).ready(function () {
 
         // spinner y demas cosas aqui
 
-        let nuevaFecha = $('#fecmod').val();
-        let nuevaDescripcion = $('#textAreaUpdateQuery').val();
-        let id = $('#consulta_id').val()
+        let fecha_consulta = $('#fecmod').val();
+        let descripcion = $('#textAreaUpdateQuery').val();
+        let id_consulta = $('#consulta_id').val()
 
         const data = await JSON.stringify({
-            consulta_id: id,
-            nueva_fecha: nuevaFecha,
-            descripcion: nuevaDescripcion
+            id_consulta,
+            fecha_consulta,
+            descripcion
         });
 
-        const response = await fetch("/Peticiones/ActualizarConsulta",
-            { ...requestOptions, method: "POST", body: data });
+        const response = await fetch("https://localhost:7091/api/Querys/actualizar_consulta",
+            { ...requestOptions, method: "PATCH", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 200) {
+            alert("Consulta actualizada correctamente!");
             location.reload();
-            console.log(resp);
+        }
+        else if (response.status === 400) {
+            alert("Eventualidad inesperada al intentar actualizar la consulta!");
+            location.reload();
         }
         else {
-            console.log("Error al intentar actualizar el usuario -> " + response.status);
+            alert("Error al intentar actualizar el usuario -> " + response.status);
+            location.reload();
         }
 
+    })
+
+    $('#formularioRegistroCliente').submit(async function (e) {
+        e.preventDefault();
+
+        let identificacion = $('#cliente_documento').val();
+        let nombre_1 = $('#cliente_nombre1').val();
+        let nombre_2 = $('#cliente_nombre2').val();
+        let apellido_1 = $('#cliente_apellido1').val();
+        let apellido_2 = $('#cliente_apellido2').val();
+        let telefono = $('#codigo_linea').val() + $('#telefono').val();
+
+        const data = JSON.stringify({
+            identificacion,
+            nombre_1,
+            nombre_2,
+            apellido_1,
+            apellido_2,
+            telefono
+        });
+
+        const response = await fetch("https://localhost:7091/api/Customers/registrar_cliente",
+            { ...requestOptions, method: "POST", body: data });
+
+        if (response.status === 201) {
+            alert("Cliente registrado con exito!");
+            location.reload();
+        }
+        else if (response.status === 400) {
+            alert("Eventualidad inesperada al intentar registrar el cliente.");
+            location.reload();
+        }
+        else {
+            alert("Error " + response.status);
+            location.reload();
+        }
 
     })
 
@@ -87,22 +134,27 @@ $(document).ready(function () {
 async function buscarCliente(id) {
 
     const res = await fetch(
-        "/Peticiones/ObtenerCliente?cedula=" + id,
+        "https://localhost:7091/api/Customers/obtener_cliente?v1=" + id,
         { ...requestOptions, method: "GET" }
     );
 
-    if (res.ok) {
+    $('#modalBuscarCliente').modal('hide');
+    clearModal1();
+
+    if (res.status === 200) {
         // Procesar data
-        $('#modalBuscarCliente').modal('hide');
-        clearModal1();
         const { cliente_id, cliente_cedula } = await res.json();
         $('#cliente_id').val(cliente_id);
         $('#cedula_cliente').val(cliente_cedula);
         $('#modalRegistroConsulta').modal('show');
-        console.log(cliente_id)
-    } else {
+    } else if (res.status === 404) {
+        $('#cliente_documento').val(id);
+        $('#modalRegistroCliente').modal('show');
+    }
+    else {
         // Manejar error HTTP
-        alert('Error -> ' + res.status)
+        alert('Error ' + res.status)
+        location.reload();
     }
 
 }

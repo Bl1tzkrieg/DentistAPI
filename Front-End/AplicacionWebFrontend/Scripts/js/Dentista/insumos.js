@@ -10,6 +10,8 @@ const requestOptions = {
 
 $(document).ready(function () {
 
+    $('#alerta_error').hide();
+
     tabla_de_insumos = crearTablaInsumos("#tbinsumos", 1);
 
     $("#formularioRegistroInsumo").submit(async function (event) {
@@ -20,22 +22,26 @@ $(document).ready(function () {
         let pedido_cantidad = parseInt($('#cantidad').val());
         let pedido_descripcion = $('#descripcion_pedido').val();
 
-        const data = await JSON.stringify({
+        const data = JSON.stringify({
             pedido_usuario_id,
             pedido_cantidad,
             pedido_descripcion
         });
 
-        const response = await fetch("/Peticiones/RegistrarInsumo",
+        const response = await fetch("https://localhost:7091/api/Orders/registrar_pedido",
             { ...requestOptions, method: "POST", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 201) {
+            alert("Pedido pegistrado con exito!")
             location.reload();
-            alert(resp)
+        }
+        else if (response.status === 400) {
+            alert("Ha ocurrido una eventualidad con la peticion.");
+            location.reload();
         }
         else {
-            console.log('Error al registrar el insumo -> ' + response.status)
+            alert("Error 500");
+            location.reload();
         }
 
     });
@@ -53,16 +59,20 @@ $(document).ready(function () {
             pedido_descripcion
         });
 
-        const response = await fetch("/Peticiones/ActualizarInsumo",
-            { ...requestOptions, method: "POST", body: data });
+        const response = await fetch("https://localhost:7091/api/Orders/actualizar_pedido",
+            { ...requestOptions, method: "PATCH", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 200) {
+            alert("Pedido actualizado correctamente!");
             location.reload();
-            alert(resp);
+        }
+        else if (response.status === 400) {
+            alert("Ha ocurrido una eventualidad con la peticion.");
+            location.reload();
         }
         else {
-            alert('Ha ocurrido un error ' + response.status);
+            alert("Error 500");
+            location.reload();
         }
 
     });

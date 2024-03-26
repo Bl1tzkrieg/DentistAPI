@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Odontologia_Backend.Data;
 using Odontologia_Backend.DTOs;
@@ -62,6 +63,26 @@ namespace Odontologia_Backend.Class
                     .FirstOrDefaultAsync<Object>();
             }
             catch ( Exception )
+            {
+                throw;
+            }
+        }
+
+        public async Task<(int,string)> CancelarPedido(int id_pedido)
+        {
+            try
+            {
+                Order? statusPedido = await this.context_Mysql.pedido_insumo.FirstOrDefaultAsync(q => q.Ped_Id.Equals(id_pedido));
+
+                if (statusPedido == null) return (0, "El pedido solicitado no esta registrado.");
+
+                statusPedido.Ped_Status = "CANCELADO";
+
+                await this.context_Mysql.SaveChangesAsync();
+
+                return (1, "Pedido cancelado correctamente");
+            }
+            catch (Exception )
             {
                 throw;
             }
@@ -149,6 +170,20 @@ namespace Odontologia_Backend.Class
                     await transactionMySql.RollbackAsync();
                     throw;
                 }
+            }
+        }
+
+        public int ObtenerCantidadDeInsumosPorEstado(int tipo)
+        {
+            try
+            {
+                string[] statusInsumo = { "FACTURADO", "CANCELADO" };
+
+                return this.context_Mysql.pedido_insumo.Count( x => x.Ped_Status.Equals(statusInsumo[tipo-1]));
+            }
+            catch ( Exception )
+            {
+                throw;
             }
         }
 

@@ -16,10 +16,6 @@ buttonPreviewVentaRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i>
 botonModifyInsumosLeft = "<button class='btn btn-primary btn-sm' type='button' onclick='updateDeInsumo(";
 botonModifyInsumosRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 
-//button detalles proveedor
-buttonProveedorLeft = "<button class='btn btn-info btn-sm' type='button' onclick='detallesDeProveedor(";
-buttonProveedorRigth = ")'><i class='fa-regular fa-rectangle-list fa-lg'></i></button>";
-
 // ***************** -------- *****************
 
 // boton cancelar consulta
@@ -35,7 +31,7 @@ buttonCancelCompraLeft = "<button class='btn btn-danger btn-sm' type='button' on
 buttonCancelCompraRigth = ")'><i class='fa-solid fa-xmark fa-lg'></i></button>"
 
 // boton cancelar Venta
-buttonCancelVentaLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelarVenta(";
+buttonCancelVentaLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='cancelarConsulta(";
 buttonCancelVentaRigth = ")'><i class='fa-solid fa-xmark fa-lg'></i></button>"
 
 // ***************** -------- *****************
@@ -58,6 +54,10 @@ buttonModifyQueryRigth = ")'><i class='fa-solid fa-gear fa-lg'></i></button>"
 buttonDeleteLeft = "<button class='btn btn-danger btn-sm' type='button' onclick='eliminarUsuario(";
 buttonDeleteRigth = ")'><i class='fa-regular fa-trash-can fa-lg'></i></button>";
 
+// button for accept query
+buttonProcesarConsultaLeft = "<button class='btn btn-success btn-sm' type='button' onclick='procesarConsulta(";
+buttonProcesarConsultaRigth = ")'><i class='fa-solid fa-square-check fa-lg'></i></button>";
+
 
 // genera la tabla de Consultas
 function crearTablaConsultas( elemento, tipo ) {
@@ -67,14 +67,15 @@ function crearTablaConsultas( elemento, tipo ) {
 
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenConsultas?id=" + tipoConsulta,
+            "url": "https://localhost:7091/api/Querys/obtener_consultas?v1=" + tipoConsulta,
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
             "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
+                // Este es el manejador de errores o excepciones
                 // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
+                $('#tabla').hide();
+                $('#alerta_error').show();
             }
         },
         columns: [
@@ -90,7 +91,7 @@ function crearTablaConsultas( elemento, tipo ) {
                     if (tipo == 1)
                         return buttonPreviewConsultaLeft + data + buttonPreviewConsultaRigth;
                     if (tipo == 2)
-                        return buttonModifyQueryLeft + data + buttonModifyQueryRigth + buttonCancelQueryLeft + data + buttonCancelQueryRigth;
+                        return buttonProcesarConsultaLeft + data + buttonProcesarConsultaRigth + buttonModifyQueryLeft + data + buttonModifyQueryRigth + buttonCancelQueryLeft + data + buttonCancelQueryRigth;
                     if (tipo == 3)
                         return buttonFacturarConsultaLeft + data + buttonFacturarConsultaRigth + buttonCancelVentaLeft + data + buttonCancelVentaRigth;
                 },
@@ -101,8 +102,8 @@ function crearTablaConsultas( elemento, tipo ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 5] },
-            { orderable: false, targets: [3] },
+            { width: "60px", targets: [0, 6] },
+            { orderable: false, targets: [5,6] },
         ],
         "dom": tipo == 2 ? 'Brfltip' : 'rfltip',
         "buttons": [
@@ -118,7 +119,7 @@ function crearTablaConsultas( elemento, tipo ) {
         responsive: true,
         processing: true,
         language: {
-            // zeroRecords: "No hay registros disponibles.",
+            zeroRecords: "No hay registros disponibles.",
             infoEmpty: "Sin Registros",
             search: "Buscar",
             processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
@@ -138,15 +139,16 @@ function crearTablaCompras( elemento ) {
 
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenCompras",
+            "url": "https://localhost:7091/api/Shopping/obtener_compras",
             // "url": @Url.Action("vista","controlador")
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
             "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
+                // Este es el manejador de errores o excepciones
                 // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
+                $('#tabla').hide();
+                $('#alerta_error').show();
             }
         },
         columns: [
@@ -168,7 +170,7 @@ function crearTablaCompras( elemento ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 5] },
+            { width: "60px", targets: [0, 6] },
             { orderable: false, targets: [6] },
         ],
         "dom": 'rfltip',
@@ -176,7 +178,7 @@ function crearTablaCompras( elemento ) {
         responsive: true,
         processing: true,
         language: {
-            // zeroRecords: "No hay registros disponibles.",
+            zeroRecords: "No hay registros disponibles.",
             infoEmpty: "Sin Registros",
             search: "Buscar",
             processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
@@ -196,14 +198,15 @@ function crearTablaVentas( elemento ) {
 
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenVentas",
+            "url": "https://localhost:7091/api/Sales/obtener_ventas",
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
             "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
+                // Este es el manejador de errores o excepciones
                 // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
+                $('#tabla').hide();
+                $('#alerta_error').show();
             }
         },
         columns: [
@@ -232,7 +235,7 @@ function crearTablaVentas( elemento ) {
         responsive: true,
         processing: true,
         language: {
-            // zeroRecords: "No hay registros disponibles.",
+            zeroRecords: "No hay registros disponibles.",
             infoEmpty: "Sin Registros",
             search: "Buscar",
             processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
@@ -250,14 +253,15 @@ function crearTablaVentas( elemento ) {
 function crearTablaUsuarios( elemento ) {
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenUsuarios",
+            "url": "https://localhost:7091/api/Users/obtener_usuario?v1=-1",
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
             "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
+                // Este es el manejador de errores o excepciones
                 // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
+                $('#tabla').hide();
+                $('#alerta_error').show();
             }
         },
         columns: [
@@ -309,7 +313,7 @@ function crearTablaUsuarios( elemento ) {
         responsive: true,
         processing: true,
         language: {
-            // zeroRecords: "No hay registros disponibles.",
+            zeroRecords: "No hay registros disponibles.",
             infoEmpty: "Sin Registros",
             search: "Buscar",
             processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
@@ -331,14 +335,15 @@ function crearTablaInsumos( elemento, tipo ) {
 
     return $(elemento).DataTable({
         ajax: {
-            "url": "/Peticiones/ResumenInsumos",
+            "url": "https://localhost:7091/api/Orders/obtener_pedidos",
             "type": "GET",
             "datatype": "json",
             "dataSrc": "",
             "error": function (xhr, error, thrown) {
-                // Este es el manejador de errores o excepciones 
+                // Este es el manejador de errores o excepciones
                 // For example, you can hide the alert using jQuery
-                console.log("Error al intentar intentar requerir las consultas!");
+                $('#tabla').hide();
+                $('#alerta_error').show();
             }
         },
         columns: [
@@ -362,7 +367,7 @@ function crearTablaInsumos( elemento, tipo ) {
         ],
         columnDefs: [
             { className: "text-center", targets: "_all" },
-            { width: "60px", targets: [0, 4] },
+            { width: "60px", targets: [0, 5] },
             { orderable: false, targets: [5] },
         ],
         "dom": 'Brfltip',
@@ -380,7 +385,7 @@ function crearTablaInsumos( elemento, tipo ) {
         responsive: true,
         processing: true,
         language: {
-            // zeroRecords: "No hay registros disponibles.",
+            zeroRecords: "No hay registros disponibles.",
             infoEmpty: "Sin Registros",
             search: "Buscar",
             processing: "<div class='spinner-grow text-primary' role='status'><span class='sr-only'> Loading...</span ></div>",
@@ -399,15 +404,15 @@ function crearTablaInsumos( elemento, tipo ) {
 async function detallesConsulta(consultaID) {
 
     const response = await fetch(
-        "/Peticiones/ObtenerConsulta?id=" + consultaID,
+        "https://localhost:7091/api/Querys/obtener_consulta?v1=" + consultaID,
         { ...requestOptions, method: "GET" }
     );
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { cedula_cliente, nombre_cliente,
             apellido_cliente, descripcion_consulta,
             fecha_generacion, fecha_asignacion,
-            nombre_usuario, consulta_estado } = await response.json();
+            nombre_usuario, consulta_estado, consulta_estado_pago } = await response.json();
 
         $('#nombre').val(nombre_cliente);
         $('#apellido').val(apellido_cliente);
@@ -417,18 +422,65 @@ async function detallesConsulta(consultaID) {
         $('#fecasig').val(fecha_asignacion);
         $('#fecemi').val(fecha_generacion);
         $('#floatingTextarea2').val(descripcion_consulta);
+        $('#estado_pago').val(consulta_estado_pago);
 
         $('#modalRegistro').modal('show');
     }
+    else if (response.status === 404) {
+        alert("Eventualidad inesperada con la consulta solicitada no se encuentra registrada en el sistema! ");
+        location.reload();
+    }
     else {
-        console.log("error -> " + consultaID + " " + response.status)
+        alert("Conexion perdida - " + response.status);
+        location.reload();
     }
     
+}
+
+async function procesarConsulta(idConsulta) {
+
+    if (confirm("Estas seguro de procesar esta consulta?")) {
+        const response = await fetch("https://localhost:7091/api/Querys/procesar_consulta?v1=" + idConsulta,
+            { ...requestOptions, method: "PATCH" }
+        );
+
+        if (response.status === 200) {
+            alert("Consulta procesada correctamente.");
+            location.reload();
+        }
+        else if (response.status === 400) {
+            alert("La solicitud ha sido negada, la consulta no existe o no ha sido facturada.");
+            location.reload();
+        }
+        else {
+            alert("Error " + response.status);
+            location.reload();
+        }
+    }
 
 }
 
-function cancelarConsulta(idConsulta) {
-    console.log("Cancelando Consulta -> " + idConsulta);
+async function cancelarConsulta(idConsulta) {
+
+    if (confirm("Estas seguro de cancelar esta consulta?")) {
+        const response = await fetch("https://localhost:7091/api/Querys/cancelar_consulta?v1=" + idConsulta,
+            { ...requestOptions, method: "PATCH" }
+        );
+
+        if (response.status === 200) {
+            alert("Consulta cancelada correctamente.");
+            location.reload();
+        }
+        else if (response.status === 400) {
+            alert("La solicitud no pudo ser procesada, esta consulta no esta registrada o no se puede cancelar porque ya ha sido facturada!");
+            location.reload();
+        }
+        else {
+            alert("Error " + response.status);
+            location.reload();
+        }
+    }
+
 }
 
 async function facturarConsulta(consultaId) {
@@ -436,11 +488,11 @@ async function facturarConsulta(consultaId) {
     // realizar la peticion para obtener los datos de la consulta a facturar
 
     const response = await fetch(
-        "/Peticiones/ObtenerConsulta?id=" + consultaId,
+        "https://localhost:7091/api/Querys/obtener_consulta?v1=" + consultaId,
         { ...requestOptions, method: "GET" }
     );
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { consulta_id_cliente, cedula_cliente, nombre_cliente,
             apellido_cliente, fecha_asignacion, consulta_estado,
             consulta_facturada, nombre_usuario
@@ -458,8 +510,14 @@ async function facturarConsulta(consultaId) {
         $('#modalFacturarConsulta').modal('show');
 
         //configurar el submit en su archivo js correspondiente
-    } else {
-        alert('Ha ocurrido un error al intentar consultar la data')
+    }
+    else if (response.status === 404) {
+        alert("Eventualidad inesperada al intentar obtener los detalles de la consulta.");
+        location.reload();
+    }
+    else {
+        alert("Error " + response.status);
+        location.reload();
     }
 
 }
@@ -467,15 +525,15 @@ async function facturarConsulta(consultaId) {
 async function modificarConsulta(consultaId) {
 
     const response = await fetch(
-        "/Peticiones/ObtenerConsulta?id=" + consultaId,
+        "https://localhost:7091/api/Querys/obtener_consulta?v1=" + consultaId,
         { ...requestOptions, method: "GET" }
     );
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { cedula_cliente, nombre_cliente,
             apellido_cliente, descripcion_consulta,
             fecha_generacion, fecha_asignacion,
-            nombre_usuario, consulta_estado, consulta_id } = await response.json();
+            nombre_usuario, consulta_estado, consulta_id, consulta_estado_pago } = await response.json();
 
         $('#consulta_id').val(consulta_id);
         $('#nombre').val(nombre_cliente);
@@ -486,11 +544,17 @@ async function modificarConsulta(consultaId) {
         $('#fecasig').val(fecha_asignacion);
         $('#fecemi').val(fecha_generacion);
         $('#textAreaUpdateQuery').val(descripcion_consulta);
+        $('#estado_pago').val(consulta_estado_pago);
 
         $('#modalUpdate').modal('show');
     }
+    else if (response.status === 404) {
+        alert("Eventualidad inesperada con la consulta solicitada no se encuentra registrada en el sistema! ");
+        location.reload();
+    }
     else {
-        console.log("error -> " + consultaID + " " + response.status)
+        alert("Conexion perdida - " + response.status);
+        location.reload();
     }
 
     // console.log("Modificar Consulta -> " + consultaId)
@@ -502,12 +566,12 @@ async function modificarConsulta(consultaId) {
 /*    Funciones de Compras    */
 async function detallesCompra(idCompra) {
 
-    const response = await fetch("/Peticiones/ObtenerCompra?id=" + idCompra,
+    const response = await fetch("https://localhost:7091/api/Shopping/obtener_compra?v1=" + idCompra,
         { ...requestOptions, method: "GET" });
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { compra_usuario, compra_fecha, compra_numero_factura, pedido_cantidad,
-        pedido_fecha_registro, pedido_status, pedido_descripcion, compra_total } = await response.json();
+            pedido_fecha_registro, pedido_status, pedido_descripcion, compra_total } = await response.json();
 
         $('#nombre_usuario').val(compra_usuario);
         $('#compra_fecha').val(compra_fecha);
@@ -520,19 +584,23 @@ async function detallesCompra(idCompra) {
 
         $('#modalCompra').modal('show');
     }
+    else if (response.status === 404) {
+        alert("Eventualidad inesperada con la compra solicitada " + response.status)
+        location.reload();
+    }
     else {
-        console.log('Error al intentar consulta la compra -> ' + idCompra);
+        alert("Error " + response.status);
     }
 }
 
 async function facturarCompra(idCompra) {
 
     const response = await fetch(
-        "/Peticiones/ObtenerInsumo?id=" + idCompra,
+        "https://localhost:7091/api/Orders/obtener_pedido?v1=" + idCompra,
         { ...requestOptions, method: "GET" }
     );
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { pedido_id, pedido_cantidad, pedido_descripcion,
             pedido_username, pedido_fecha, pedido_status }
             = await response.json();
@@ -546,14 +614,15 @@ async function facturarCompra(idCompra) {
 
         $('#modalFacturarInsumo').modal('show')
     }
+    else if (response.status === 404) {
+        alert("Solicitud no pudo ser procesada error con la peticion!" + response.status);
+        location.reload();
+    }
     else {
-        alert('Error -> ' + response.status);
+        alert("Error " + response.status);
+        location.reload();
     }
 
-}
-
-function cancelarCompra(idCompra) {
-    console.log("Cancelando Compra -> " + idCompra )
 }
 
 // fin funciones de compras
@@ -561,10 +630,10 @@ function cancelarCompra(idCompra) {
 /*      Funciones de Ventas     */
 async function detallesVenta(idVenta) {
 
-    const response = await fetch("/Peticiones/ObtenerVenta?id=" + idVenta,
+    const response = await fetch("https://localhost:7091/api/Sales/obtener_venta?v1=" + idVenta,
         { ...requestOptions, method: "GET" });
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { venta_nombre_cliente, venta_apellido_cliente, venta_cedula_cliente,
             venta_username, venta_numero_factura, venta_fecha, venta_total, venta_tipo_pago } = await response.json();
 
@@ -579,25 +648,26 @@ async function detallesVenta(idVenta) {
 
         $('#modalVenta').modal('show');
     }
+    else if (response.status === 404) {
+        alert("Solicitud no pudo ser procesada la venta solicitada. " + response.status);
+        location.reload();
+    }
     else {
-        console.log('Error al consulta detalles compra -> ' + reponse.status);
+        alert("Error " + response.status);
+        location.reload();
     }
 
-    console.log("Detalles de la Venta -> " + idVenta)
 }
 
-function cancelarVenta(idVenta) {
-    console.log("Cancelando Venta -> " + idVenta)
-}
 // fin funciones ventas
 
 /*   funciones de insumos    */
 async function updateDeInsumo(idInsumo) {
 
-    const response = await fetch("/Peticiones/ObtenerInsumo?id=" + idInsumo,
+    const response = await fetch("https://localhost:7091/api/Orders/obtener_pedido?v1=" + idInsumo,
         { ...requestOptions, method: "GET" });
 
-    if (response.ok) {
+    if (response.status === 200) {
         const { pedido_id, pedido_cantidad, pedido_descripcion,
             pedido_username, pedido_fecha, pedido_status } = await response.json();
 
@@ -610,16 +680,38 @@ async function updateDeInsumo(idInsumo) {
 
         $('#modalUpdateInsumo').modal('show');
     }
+    else if (response.status === 404) {
+        alert("Solicitud no pudo ser procesada al intentar actualizar en pedido, " + response.status);
+        location.reload();
+    }
     else {
-        console.log('Error al intentar consulta la compra -> ' + idCompra);
+        alert("Error " + response.status);
+        location.reload();
     }
 
-
-    console.log("Detalles del Insumo -> " + idInsumo)
 }
 
-function cancelarInsumo(idInsumo) {
-    console.log("Cancelando Insumo -> " + idInsumo)
+async function cancelarInsumo(idInsumo) {
+
+    if (confirm("Estas seguro de cancelar este insumo?")) {
+        const response = await fetch("https://localhost:7091/api/Orders/cancelar_pedido?v1=" + idInsumo,
+            { ...requestOptions, method: "PATCH" }
+        );
+
+        if (response.status === 200) {
+            alert("Insumo cancelado correctamente.");
+            location.reload();
+        }
+        else if (response.status === 400) {
+            alert("La solicitud no pudo ser procesada, este insumo no esta registrado!");
+            location.reload();
+        }
+        else {
+            alert("Error " + response.status);
+            location.reload();
+        }
+    }
+
 }
 // fin funciones de Insumos
 
@@ -627,25 +719,29 @@ function cancelarInsumo(idInsumo) {
 async function modificarUsuario(idUsuario) {
 
     // solicitar la informacion al backend llenar el modal con los datos
-    const response = await fetch("/Peticiones/ResumenUsuarios?id=" + idUsuario,
+    const response = await fetch("https://localhost:7091/api/Users/obtener_usuario?v1=" + idUsuario,
         { ...requestOptions, method: "GET" });
 
-    const usuarios = await response.json();
-    if (usuarios.length > 0) {
-        const { Usu_UserName, Usu_Rol_Id, Usu_Status, Usu_Emp_Id } = usuarios[0];
-        $('#user_update').val(Usu_UserName);
-        $('#rol_update').val(Usu_Rol_Id);
-        $('#status').val(Usu_Status ? "1" : "0");
-        $('#idEmpleado_update').val(Usu_Emp_Id);
-        $('#modalUpdate').modal('show'); // mostrar el modal luego de ser rellenado
+    if (response.status === 200) {
+        const usuarios = await response.json();
+        if (usuarios.length > 0) {
+            const { Usu_UserName, Usu_Rol_Id, Usu_Status, Usu_Emp_Id } = usuarios[0];
+            $('#user_update').val(Usu_UserName);
+            $('#rol_update').val(Usu_Rol_Id);
+            $('#status').val(Usu_Status ? "1" : "0");
+            $('#idEmpleado_update').val(Usu_Emp_Id);
+            $('#modalUpdate').modal('show'); // mostrar el modal luego de ser rellenado
+        }
+        else {
+            alert("Solicitud no pudo ser procesada con el usuario solicitado, " + response.status);
+            location.reload();
+        }
     } else {
-        console.log('No se encontró ningún usuario');
+        alert("Error " + response.status);
+        location.reload()
     }
 }
 
-function eliminarUsuario(idUsuario) {
-    console.log("Eliminar Usuario -> " + idUsuario)
-}
 // fin funciones de Usuarios
 
 

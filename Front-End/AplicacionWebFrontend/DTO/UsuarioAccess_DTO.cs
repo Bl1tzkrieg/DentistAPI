@@ -12,5 +12,6 @@ namespace AplicacionWebFrontend.DTO
         public bool status { get; set; }
         public byte rol { get; set; }
         public string token { get; set; }
+        public string message { get; set; }
     }
 }

@@ -13,7 +13,11 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbinsumos">
             <thead class="table-primary">
                 <tr>
@@ -39,8 +43,7 @@
                 <div class="modal-body">
                     <form id="formularioRegistroInsumo">
                         <div class="mb-3">
-                            <label for="usuario_id">Usuario Id</label>
-                            <input type="text" class="form-control" id="usuario_id" disabled>
+                            <input type="hidden" class="form-control" id="usuario_id">
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="1" max="100" class="form-control" id="cantidad" required>
                         </div>

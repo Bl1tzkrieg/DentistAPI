@@ -35,45 +35,44 @@ namespace AplicacionWebFrontend.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(Usuario_DTO user)
         {
-
             try
             {
-                var api_Request = new RestClient("https://localhost:7091/");
-                var request = new RestRequest("api/AccessToken", Method.Post );
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(new { username = user.USUARIO, password = user.PASSWORD });
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                request.AddHeader("Content-Type", "application/json");
-                request.AddJsonBody(new { username = user.USUARIO, password = user.PASSWORD });
-
-                var respuesta = await api_Request.PostAsync(request);
-
-                if (respuesta.StatusCode == 0)
+                using (var httpClient = new HttpClient())
                 {
-                    throw new Exception(respuesta.ErrorMessage);
+                    var response = await httpClient.PostAsync("https://localhost:7091/api/AccessToken", content);
+
+                    if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        string message = await response.Content.ReadAsStringAsync();
+                        return Json(new { statuscode = (int)response.StatusCode, message, data = string.Empty }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                        return Json(new { statuscode = (int)response.StatusCode, message = "Internal server error", data = string.Empty }, JsonRequestBehavior.AllowGet);
+
+                    string contenido = await response.Content.ReadAsStringAsync();
+                    UsuarioAccess_DTO _user = JsonConvert.DeserializeObject<UsuarioAccess_DTO>(contenido);
+
+                    // usuario autenticado
+                    FormsAuthentication.SetAuthCookie(_user.username, false);
+
+                    // estableciendo valores de sesión 
+                    Session["info_usuario"] = _user;
+                    Session["perfil"] = getRolName(_user.rol);
+
+                    return Json(new { statuscode = (int)response.StatusCode, message = "acceso permitido", data = _user }, JsonRequestBehavior.AllowGet);
+                    
                 }
-
-                if (respuesta.StatusCode == System.Net.HttpStatusCode.InternalServerError)
-                {
-                    throw new Exception(respuesta.StatusDescription);
-                }
-
-                string contenido = respuesta.Content;
-                UsuarioAccess_DTO _user = JsonConvert.DeserializeObject<UsuarioAccess_DTO>(contenido);
-
-                // usuario authenticado
-                FormsAuthentication.SetAuthCookie(_user.username, false);
-
-                // estableciendo valores de session 
-                Session["info_usuario"] = _user;
-                Session["perfil"] = getRolName(_user.rol);
-
-                return Json(_user,JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                throw ex;
+                return Json(new { statuscode = 500, message = ex.Message, data = string.Empty }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
 
         // GET
         public ActionResult Cerrar()

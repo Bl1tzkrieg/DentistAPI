@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Class
                     .Join(this.context_Mysql.usuarios, venta => venta.Venta_Usu_Id, usuario => usuario.Usu_Id, (venta,usuario) => new { venta, usuario } )
                     .Join(this.context_Mysql.clientes, v2 => v2.venta.Venta_Cli_Id, cliente => cliente.Cli_Id, (v2,cliente) => new { v2.venta, v2.usuario, cliente })
                     .Join(this.context_Mysql.ventas_detalle, v3 => v3.venta.Venta_Vd_Id, vd => vd.Vd_Id, (v3, venta_detalle) => new { v3.venta, v3.cliente, v3.usuario, venta_detalle })
-                    .Join(this.context_Mysql.tipo_pago, vd => vd.venta_detalle.Vd_Id, tp => tp.Tp_Id, (vd2, tipo_pago) => new { vd2.venta, vd2.cliente, vd2.usuario, vd2.venta_detalle, tipo_pago})
+                    .Join(this.context_Mysql.tipo_pago, vd => vd.venta_detalle.Vd_TipoDePago, tp => tp.Tp_Id, (vd2, tipo_pago) => new { vd2.venta, vd2.cliente, vd2.usuario, vd2.venta_detalle, tipo_pago})
                     .Select( x => new
                     {
                         venta_id = x.venta.Venta_Id,
@@ -56,7 +56,7 @@ namespace Odontologia_Backend.Class
                     .Join(this.context_Mysql.usuarios, venta => venta.Venta_Usu_Id, usuario => usuario.Usu_Id, (venta, usuario) => new { venta, usuario })
                     .Join(this.context_Mysql.clientes, v2 => v2.venta.Venta_Cli_Id, cliente => cliente.Cli_Id, (v2, cliente) => new { v2.venta, v2.usuario, cliente })
                     .Join(this.context_Mysql.ventas_detalle, v3 => v3.venta.Venta_Vd_Id, vd => vd.Vd_Id, (v3, venta_detalle) => new { v3.venta, v3.cliente, v3.usuario, venta_detalle })
-                    .Join(this.context_Mysql.tipo_pago, vd => vd.venta_detalle.Vd_Id, tp => tp.Tp_Id, (vd2, tipo_pago) => new { vd2.venta, vd2.cliente, vd2.usuario, vd2.venta_detalle, tipo_pago })
+                    .Join(this.context_Mysql.tipo_pago, vd => vd.venta_detalle.Vd_TipoDePago, tp => tp.Tp_Id, (vd2, tipo_pago) => new { vd2.venta, vd2.cliente, vd2.usuario, vd2.venta_detalle, tipo_pago })
                     .Where( x => x.venta.Venta_Id.Equals(id))
                     .Select(x => new
                     {
@@ -99,6 +99,38 @@ namespace Odontologia_Backend.Class
                 {
                     throw;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Devuelve la cantidad de ventas realizadas.
+        /// </summary>
+        /// <returns></returns>
+        public int ObtenerCantidadDeVentas()
+        {
+            try
+            {
+                return this.context_Mysql.ventas.Count();
+            }
+            catch ( Exception)
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Devuelve el monto total de ingresos
+        /// </summary>
+        /// <returns></returns>
+        public decimal ObtenerTotalIngresos()
+        {
+            try
+            {
+                return this.context_Mysql.ventas_detalle.Sum(q => q.Vd_Total);
+            }
+            catch ( Exception )
+            {
+                throw;
             }
         }
 

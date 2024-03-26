@@ -79,6 +79,26 @@
             <param name="consulta_id"></param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.ProcesarConsulta(System.Int32)">
+            <summary>
+            procesa una consulta, para cambiar su estado de PENDIENTE -> PROCESADA
+            </summary>
+            <param name="consulta_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.TotalConsultas(System.Int32)">
+            <summary>
+            Devuelve la cantidad de consultas de acuerdo al tipo recibido
+            </summary>
+            <param name="tipo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerQuerys.TotalConsultasPorFacturar(System.Int32)">
+            <summary>
+            Devuelve la cantidad de consultas por facturar.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Class.HandlerSales.ObtenerVentas">
             <summary>
             Devuelve una lista de todas las ventas realizadas
@@ -94,6 +114,18 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="M:Odontologia_Backend.Class.HandlerSales.ObtenerCantidadDeVentas">
+            <summary>
+            Devuelve la cantidad de ventas realizadas.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Class.HandlerSales.ObtenerTotalIngresos">
+            <summary>
+            Devuelve el monto total de ingresos
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Class.HandlerUsers.ObtenerUsuario(System.Int32)">
             <summary>
             Devuelve Un usuario filtrando la busqueda por su nombre de usuario
@@ -102,11 +134,11 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:Odontologia_Backend.Class.HandlerUsers.RegistrarUsuario(Odontologia_Backend.Models.Usuario)">
+        <member name="M:Odontologia_Backend.Class.HandlerUsers.RegistrarUsuario(Odontologia_Backend.DTOs.User_DTO)">
             <summary>
             Registra un nuevo usuario a la base de datos
             </summary>
-            <param name="usuario"></param>
+            <param name="user"></param>
             <returns></returns>
         </member>
         <member name="M:Odontologia_Backend.Class.HandlerUsers.ActualizarUsuario(Odontologia_Backend.Models.Usuario)">
@@ -129,6 +161,18 @@
             Registra una compra asociada
             </summary>
             <param name="reqBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.ShoppingController.ObtenerCantidadCompras">
+            <summary>
+            Devuelve la cantidad de compras realizadas
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.ShoppingController.ObtenerTotalGastos">
+            <summary>
+            Devuelve el total de todos los gastos en compras.
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Odontologia_Backend.Helper.Encryptar.HashPassword(System.String)">

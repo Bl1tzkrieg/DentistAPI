@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeConsultas = await this.recursos_Consultas.ObtenerConsultas(v1);
 
-                return listaDeConsultas.Count > 0 ? Ok(listaDeConsultas) : NotFound(listaDeConsultas);
+                return Ok(listaDeConsultas);
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace Odontologia_Backend.Controllers
             {
                 Object? statusConsulta = await this.recursos_Consultas.ObtenerConsulta(v1);
 
-                return statusConsulta is null ? NotFound("Consulta no encontrada") : Ok(statusConsulta);
+                return statusConsulta is null ? NotFound() : Ok(statusConsulta);
 
             }
             catch (Exception ex) 
@@ -72,7 +72,7 @@ namespace Odontologia_Backend.Controllers
                     Consult_Facturada = "POR FACTURAR"
                 });
 
-                return statusRegistro > 0 ? Ok(message) : BadRequest();
+                return statusRegistro > 0 ? StatusCode(201) : BadRequest();
             }
             catch (Exception ex) 
             {
@@ -96,9 +96,24 @@ namespace Odontologia_Backend.Controllers
                     Consult_Descripcion = query.descripcion,
                 });
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? Ok() : BadRequest();
             }
             catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPatch("procesar_consulta")]
+        public async Task<ActionResult> ProcesarConsulta([FromQuery] int v1)
+        {
+            try
+            {
+                (int status, string message) = await this.recursos_Consultas.ProcesarConsulta(v1);
+
+                return status > 0 ? Ok() : BadRequest();
+            }
+            catch ( Exception ex )
             {
                 return Problem(ex.Message, default, 500);
             }
@@ -111,7 +126,7 @@ namespace Odontologia_Backend.Controllers
             {
                 (int status, string message) = await this.recursos_Consultas.CancelarConsulta(v1);
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? Ok() : BadRequest();
             }
             catch (Exception ex)
             {
@@ -131,7 +146,7 @@ namespace Odontologia_Backend.Controllers
 
                 (int status, string message) = await this.recursos_Consultas.FacturarConsulta(reqBody);
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? StatusCode(201) : BadRequest();
             }
             catch ( Exception ex )
             {
@@ -139,5 +154,34 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        [HttpGet("obtener_total_consultas_por_tipo")]
+        public async Task<ActionResult> GetTotal_Consultas([FromQuery] int v1)
+        {
+            try
+            {
+                int total = this.recursos_Consultas.TotalConsultas(v1);
+
+                return Ok(total);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message, default, 500);
+            }
+        }
+
+        [HttpGet("obtener_consultas_por_facturar")]
+        public ActionResult GetConsultasPorFacturar([FromQuery] int v1)
+        {
+            try
+            {
+                int consultasPorFacturar = this.recursos_Consultas.TotalConsultasPorFacturar(v1);
+
+                return Ok(consultasPorFacturar);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message, default, 500);
+            }
+        }
     }
 }

@@ -176,7 +176,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DentistaController.cs" />
     <Compile Include="Controllers\FacturadorController.cs" />
-    <Compile Include="Controllers\PeticionesController.cs" />
     <Compile Include="Controllers\RecepcionController.cs" />
     <Compile Include="Data\CatalogSql.cs" />
     <Compile Include="DTO\ActualizarConsulta_DTO.cs" />
@@ -185,6 +184,7 @@
     <Compile Include="DTO\FacturarConsulta_DTO.cs" />
     <Compile Include="DTO\FacturarInsumo_DTO.cs" />
     <Compile Include="DTO\RegistrarConsulta_DTO.cs" />
+    <Compile Include="DTO\RegistrarEmpleado_DTO.cs" />
     <Compile Include="DTO\RegistrarInsumo_DTO.cs" />
     <Compile Include="DTO\RegistroUsuario_DTO.cs" />
     <Compile Include="DTO\UsuarioAccess_DTO.cs" />

@@ -13,7 +13,34 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 d-flex justify-content-around flex-wrap">
+        <div class="card text-white my-4" style="max-width: 18rem; background: linear-gradient(to top, #009933 0%, #33cc33 100%)">
+            <div class="card-header"><h4>Consultas Procesadas</h4></div>
+            <div class="card-body text-center">
+                <h2 class="pt-2" id="consultas_procesadas">0</h2>
+            </div>
+        </div>
+        <div class="card text-white my-4" style="max-width: 18rem; background: linear-gradient(to top, #0099ff 0%, #0066cc 100%)">
+            <div class="card-header"><h4>Consultas Pendientes</h4></div>
+            <div class="card-body text-center">
+                <h2 class="pt-2" id="consultas_pendientes">0</h2>
+            </div>
+        </div>
+        <div class="card text-white my-4" style="max-width: 18rem; background: linear-gradient(to top, #ff0000 0%, #800000 100%)">
+            <div class="card-header"><h4>Consultas Canceladas</h4></div>
+            <div class="card-body text-center">
+                <h2 class="pt-2" id="consultas_canceladas">0</h2>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbconsultas">
             <thead class="table-primary">
                 <tr>
@@ -64,14 +91,18 @@
                             <input type="text" class="form-control" id="estado" disabled>
                         </div>
                         <div class="col">
-                            <label for="fecasig">Fecha de Consulta</label>
-                            <input type="text" class="form-control" id="fecasig" disabled>
+                            <label for="estado">Estado de pago</label>
+                            <input type="text" class="form-control" id="estado_pago" disabled>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <label for="fecemi">Fecha de Emision</label>
                             <input type="text" class="form-control" id="fecemi" disabled>
+                        </div>
+                        <div class="col">
+                            <label for="fecasig">Fecha de Consulta</label>
+                            <input type="text" class="form-control" id="fecasig" disabled>
                         </div>
                     </div>
                     <div class="form-floating mt-3">

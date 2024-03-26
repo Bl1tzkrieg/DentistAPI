@@ -15,17 +15,16 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-/* Creacion de la base de datos */
-CREATE DATABASE IF NOT EXISTS odontologia;
-
-/* seleccionar la base de datos para la creacion de tablas */
-USE odontologia;
+-- Volcando estructura de base de datos para odontologia
+DROP DATABASE IF EXISTS `odontologia`;
+CREATE DATABASE IF NOT EXISTS `odontologia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `odontologia`;
 
 -- Volcando estructura para tabla odontologia.clientes
 DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE IF NOT EXISTS `clientes` (
   `Cli_Id` int unsigned NOT NULL AUTO_INCREMENT,
-  `Cli_Cedula` varchar(8) NOT NULL DEFAULT '',
+  `Cli_Cedula` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `Cli_Nombre1` varchar(50) NOT NULL DEFAULT '',
   `Cli_Nombre2` varchar(50) DEFAULT '',
   `Cli_Apellido1` varchar(50) NOT NULL DEFAULT '',
@@ -34,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `Cli_Telefono` varchar(11) NOT NULL DEFAULT 'NO ASIGNADO',
   PRIMARY KEY (`Cli_Id`),
   UNIQUE KEY `Cli_Cedula` (`Cli_Cedula`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `compras` (
   KEY `FK2_Compras_Ped` (`Comp_Ped_Id`),
   CONSTRAINT `FK1_Compras_Usu` FOREIGN KEY (`Comp_Usu_Id`) REFERENCES `usuarios` (`Usu_Id`),
   CONSTRAINT `FK2_Compras_Ped` FOREIGN KEY (`Comp_Ped_Id`) REFERENCES `pedido_insumo` (`Ped_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -72,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `consultas` (
   KEY `FK2_Consult_Cli` (`Consult_Id_Cliente`),
   CONSTRAINT `FK1_Consult_Usu` FOREIGN KEY (`Consult_Usu_Id`) REFERENCES `usuarios` (`Usu_Id`),
   CONSTRAINT `FK2_Consult_Cli` FOREIGN KEY (`Consult_Id_Cliente`) REFERENCES `clientes` (`Cli_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -89,7 +88,10 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   PRIMARY KEY (`Emp_Id`),
   UNIQUE KEY `Emp_Cedula` (`Emp_Cedula`),
   UNIQUE KEY `Emp_Correo` (`Emp_Correo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `odontologia`.`empleados` (`Emp_Cedula`,`Emp_Nombre1`,`Emp_Nombre2`,`Emp_Apellido1`,`Emp_Apellido2`,`Emp_Correo`)
+VALUES ('V12345678','master',null,'shief',null,'admin@mail.com');
 
 -- La exportación de datos fue deseleccionada.
 
@@ -105,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `pedido_insumo` (
   PRIMARY KEY (`Ped_Id`),
   KEY `FK1_Ped_Usu` (`Ped_Usu_Id`),
   CONSTRAINT `FK1_Ped_Usu` FOREIGN KEY (`Ped_Usu_Id`) REFERENCES `usuarios` (`Usu_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -115,7 +117,12 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `Rol_Id` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `Rol_Descripcion` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`Rol_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('ADMINISTRADOR');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('DENTISTA');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('FACTURADOR');
+INSERT INTO `odontologia`.`roles` (`Rol_Descripcion`) VALUES ('RECEPCION');
 
 -- La exportación de datos fue deseleccionada.
 
@@ -125,7 +132,13 @@ CREATE TABLE IF NOT EXISTS `tipo_pago` (
   `Tp_Id` tinyint unsigned NOT NULL AUTO_INCREMENT,
   `Tp_Descripcion` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`Tp_Id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `odontologia`.`tipo_pago` (`Tp_Descripcion`) VALUES ('ZELLE');
+INSERT INTO `odontologia`.`tipo_pago` (`Tp_Descripcion`) VALUES ('PAGOMOVIL');
+INSERT INTO `odontologia`.`tipo_pago` (`Tp_Descripcion`) VALUES ('DEBITO');
+INSERT INTO `odontologia`.`tipo_pago` (`Tp_Descripcion`) VALUES ('EFECTIVO');
+INSERT INTO `odontologia`.`tipo_pago` (`Tp_Descripcion`) VALUES ('CREDITO');
 
 -- La exportación de datos fue deseleccionada.
 
@@ -144,7 +157,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   KEY `FK2_Usu_Rol` (`Usu_Rol_Id`),
   CONSTRAINT `FK1_Usu_Emp` FOREIGN KEY (`Usu_Emp_Id`) REFERENCES `empleados` (`Emp_Id`),
   CONSTRAINT `FK2_Usu_Rol` FOREIGN KEY (`Usu_Rol_Id`) REFERENCES `roles` (`Rol_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `odontologia`.`usuarios` (`Usu_UserName`, `Usu_Password`, `Usu_Rol_Id`, `Usu_Emp_Id`) VALUES ('ADMIN', '1234', 1, 1);
 
 -- La exportación de datos fue deseleccionada.
 
@@ -166,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   CONSTRAINT `FK1_Venta_Cli` FOREIGN KEY (`Venta_Cli_Id`) REFERENCES `clientes` (`Cli_Id`),
   CONSTRAINT `FK2_Venta_Usu` FOREIGN KEY (`Venta_Usu_Id`) REFERENCES `usuarios` (`Usu_Id`),
   CONSTRAINT `FK3_Venta_Vd` FOREIGN KEY (`Venta_Vd_Id`) REFERENCES `ventas_detalle` (`Vd_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 
@@ -179,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `ventas_detalle` (
   PRIMARY KEY (`Vd_Id`),
   KEY `FK1_Vd_TipoDePago` (`Vd_TipoDePago`) USING BTREE,
   CONSTRAINT `FK1_tipo_pago` FOREIGN KEY (`Vd_TipoDePago`) REFERENCES `tipo_pago` (`Tp_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- La exportación de datos fue deseleccionada.
 

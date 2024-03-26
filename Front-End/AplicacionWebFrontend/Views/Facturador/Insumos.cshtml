@@ -11,7 +11,26 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="m-3 d-flex justify-content-around flex-wrap">
+        <div class="card m-3 text-center p-3 bg-info bg-opacity-10 border border-info rounded-end" style="width: 30rem;">
+            <div class="card-body">
+                <h3 class="card-title">Insumos Aprobados</h3>
+                <h4 class="card-text" id="insumos_aprobados">0</h4>
+            </div>
+        </div>
+        <div class="card m-3 text-center p-3 bg-danger bg-opacity-10 border border-danger rounded-end" style="width: 30rem;">
+            <div class="card-body">
+                <h3 class="card-title">Insumos Cancelados</h3>
+                <h4 class="card-text" id="insumos_cancelados">0</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbinsumos">
             <thead class="table-primary">
                 <tr>
@@ -37,8 +56,7 @@
                 <div class="modal-body">
                     <form id="formularioRegistroInsumo">
                         <div class="mb-3">
-                            <label for="usuario_id">Usuario Id</label>
-                            <input type="text" class="form-control" id="usuario_id" disabled>
+                            <input type="hidden" class="form-control" id="usuario_id" disabled>
                             <label for="cantidad">Cantidad</label>
                             <input type="number" min="1" max="100" class="form-control" id="cantidad" required>
                         </div>

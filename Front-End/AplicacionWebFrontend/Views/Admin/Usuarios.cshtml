@@ -13,7 +13,11 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped responsive" cellspacing="0" style="width:100%" id="tbusuarios">
             <thead class="table-primary">
                 <tr>
@@ -35,19 +39,62 @@
                     <h3 class="modal-title" id="modalBuscarEmpleadoLabel">Ingrese el documento de identidad</h3>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formularioBuscarEmpleado">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="identificacion" placeholder="Example V12345678">
+                            <select class="form-select w-25 d-inline" id="tipo_documento" required>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
+                            </select>
+                            <input type="text" class="form-control d-inline" id="identificacion" placeholder="Example 12345678" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Buscar Empleado</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="buscarEmp">Buscar Empleado</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de registor de empleado -->
+    <div class="modal fade" id="modalRegistroEmpleado" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Registro de Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioRegistroEmpleado">
+                        <div class="mb-3">
+                            <label for="primer_nombre" class="form-label">Primer Nombre</label>
+                            <input type="text" class="form-control" id="primer_nombre" required>
+                            <label for="segundo_nombre" class="form-label">Segundo Nombre</label>
+                            <input type="text" class="form-control" id="segundo_nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="primer_apellido" class="form-label">Primer Apellido</label>
+                            <input type="text" class="form-control" id="primer_apellido" required>
+                            <label for="segundo_apellido" class="form-label">Segundo Apellido</label>
+                            <input type="text" class="form-control" id="segundo_apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cedula_identidad" class="form-label">Cedula de identidad</label>
+                            <input type="text" class="form-control" id="cedula_identidad" disabled>
+                            <label for="correo" class="form-label">Correo Electronico</label>
+                            <input type="email" class="form-control" id="correo" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Registrar Empleado</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal de registor de usuario -->
     <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
@@ -82,8 +129,8 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="idEmpleado" class="form-label">ID Empleado</label>
-                            <input type="text" class="form-control" id="idEmpleado" name="idEmpleado" disabled>
+                            <input type="hidden" class="form-control" id="idEmpleado" disabled>
+                            <input type="hidden" class="form-control" id="cedula_empleado" disabled>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -111,11 +158,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="pass_update" name="password" required>
+                            <input type="password" class="form-control" id="pass_update" name="password" >
                         </div>
                         <div class="mb-3">
                             <label for="repeatPassword" class="form-label">Repetir Contraseña</label>
-                            <input type="password" class="form-control" id="repeatPass_update" required>
+                            <input type="password" class="form-control" id="repeatPass_update" >
                         </div>
                         <div class="mb-3">
                             <label for="rol_update" class="form-label">Rol</label>

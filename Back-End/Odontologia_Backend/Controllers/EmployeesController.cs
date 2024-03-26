@@ -30,7 +30,11 @@ namespace Odontologia_Backend.Controllers
 
                 Empleado? _empleado = await this.recursos_Empleados.ObtenerEmpleado(v1);
 
-                return _empleado is not null ? Ok(_empleado) : NotFound("Empleado No Encontrado");
+                return _empleado is not null ? Ok( new { 
+                    status = true, 
+                    _empleado.Emp_Id,
+                }) 
+                    : NotFound( new { status = false, Emp_Id = -1 });
             }
             catch (Exception ex)
             {
@@ -58,27 +62,13 @@ namespace Odontologia_Backend.Controllers
                     Emp_Correo = empleado.correo,
                 });
 
-                return statusRegistro > 0 ? Ok(message) : BadRequest();
+                return statusRegistro > 0 ? StatusCode(201) : BadRequest();
             }
             catch (Exception ex)
             {
                 return Problem(ex.Message, default, 500);
             }
         }
-
-        [HttpPatch]
-        public async Task<ActionResult> PatchEmpleado( string v1 )
-        {
-            try
-            {
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message, default, 500);
-            }
-        }
-
 
     }
 }

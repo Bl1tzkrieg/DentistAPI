@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using MySqlX.XDevAPI;
 using Odontologia_Backend.Data;
+using Odontologia_Backend.DTOs;
 using Odontologia_Backend.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Odontologia_Backend.Class
 {
@@ -26,7 +28,7 @@ namespace Odontologia_Backend.Class
             try
             {
                 if (user_id.Equals(-1))
-                    return await this.context_Mysql.usuarios.ToListAsync();
+                    return await this.context_Mysql.usuarios.Where( x => x.Usu_Rol_Id > 1).ToListAsync();
 
                 return await this.context_Mysql.usuarios.Where(x => x.Usu_Id == user_id).ToListAsync();
             }
@@ -39,15 +41,27 @@ namespace Odontologia_Backend.Class
         /// <summary>
         /// Registra un nuevo usuario a la base de datos
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<(int,string)> RegistrarUsuario( Usuario usuario)
+        public async Task<(int,string)> RegistrarUsuario( User_DTO user )
         {
             using (IDbContextTransaction transactionMySql = this.context_Mysql.Database.BeginTransaction())
             {
                 try
                 {
-                    await this.context_Mysql.usuarios.AddAsync(usuario);
+                    // validar si el nombre ya existe
+                    if (this.context_Mysql.usuarios.Any(x => x.Usu_UserName == user.username)) return (0, "El nombre de usuario ya existe!");
+
+                    // validar si el empleado ya tiene un usuario
+                    if (this.context_Mysql.usuarios.Any(x => x.Usu_Emp_Id.Equals(user.empleado_id))) return (0, "El empleado indicado ya tiene un usuario asignado");
+
+                    await this.context_Mysql.usuarios.AddAsync( new Usuario()
+                    {
+                        Usu_UserName = user.username.ToUpper(),
+                        Usu_Password = user.password,
+                        Usu_Rol_Id = user.rol,
+                        Usu_Emp_Id = user.empleado_id
+                    });
                     await this.context_Mysql.SaveChangesAsync();
                     await transactionMySql.CommitAsync();
                     return (1, "Usuario registrado con exito");
@@ -74,7 +88,9 @@ namespace Odontologia_Backend.Class
 
                 if (statusUser == null) return (0, "Usuario no Encontrado");
 
-                statusUser.Usu_Password = usuario.Usu_Password;
+                if( usuario.Usu_Password != "" )
+                    statusUser.Usu_Password = usuario.Usu_Password;
+
                 statusUser.Usu_Status = usuario.Usu_Status;
                 statusUser.Usu_Rol_Id = usuario.Usu_Rol_Id;
                 
@@ -88,5 +104,6 @@ namespace Odontologia_Backend.Class
                 throw;
             }
         }
+
     }
 }

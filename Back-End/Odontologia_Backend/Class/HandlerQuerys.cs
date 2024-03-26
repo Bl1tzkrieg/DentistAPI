@@ -31,7 +31,7 @@ namespace Odontologia_Backend.Class
                             (consulta, usuario) => new { consulta, usuario })
                         .Join(this.context_Mysql.clientes, c => c.consulta.Consult_Id_Cliente, cli => cli.Cli_Id,
                             ( c2, cliente) => new { c2.consulta, c2.usuario, cliente})
-                        .Where( q => ( status > 1 ? q.consulta.Consult_Status.Equals("PENDIENTE") : true ) )
+                        .Where( q => ( status > 1 ? (status > 2 ? q.consulta.Consult_Facturada.Equals("POR FACTURAR") && q.consulta.Consult_Status.Equals("PENDIENTE") : q.consulta.Consult_Status.Equals("PENDIENTE")) : true ) )
                         .Select( x => new {
                             consulta_id = x.consulta.Consult_Id,
                             cedula_cliente = x.cliente.Cli_Cedula,
@@ -41,7 +41,8 @@ namespace Odontologia_Backend.Class
                             fecha_asignacion = x.consulta.Consult_FecAsig.ToString("dd/MM/yyyy"),
                             fecha_generacion = x.consulta.Consult_FecGen.ToString("dd/MM/yyyy"),
                             nombre_usuario = x.usuario.Usu_UserName,
-                            consulta_estado = x.consulta.Consult_Status
+                            consulta_estado = x.consulta.Consult_Status,
+                            consulta_estado_pago = x.consulta.Consult_Facturada,
                         })
                         .ToListAsync<Object>();
             }
@@ -76,6 +77,7 @@ namespace Odontologia_Backend.Class
                             fecha_generacion = x.consulta.Consult_FecGen.ToString("dd/MM/yyyy"),
                             nombre_usuario = x.usuario.Usu_UserName,
                             consulta_estado = x.consulta.Consult_Status,
+                            consulta_estado_pago = x.consulta.Consult_Facturada,
                             consulta_id_cliente = x.consulta.Consult_Id_Cliente,
                             consulta_facturada = x.consulta.Consult_Facturada
                         })
@@ -209,8 +211,6 @@ namespace Odontologia_Backend.Class
 
                 if (statusConsulta.Consult_Facturada.Equals("FACTURADA")) return (0, "Esta consulta no puede ser cancelada porque ya ha sido facturada");
 
-                if (statusConsulta.Consult_Status.Equals("CANCELADA")) return (0, "La consulta ya ha sido cancelada");
-
                 statusConsulta.Consult_Status = "CANCELADA";
 
                 await this.context_Mysql.SaveChangesAsync();
@@ -222,5 +222,72 @@ namespace Odontologia_Backend.Class
                 throw;
             }
         }
+
+        /// <summary>
+        /// procesa una consulta, para cambiar su estado de PENDIENTE -> PROCESADA
+        /// </summary>
+        /// <param name="consulta_id"></param>
+        /// <returns></returns>
+        public async Task<(int,string)> ProcesarConsulta(int consulta_id)
+        {
+            try
+            {
+                Consulta? statusConsulta = await this.context_Mysql.consultas.FirstOrDefaultAsync(q => q.Consult_Id.Equals(consulta_id));
+
+                if (statusConsulta == null) return (0, "No se pudo encontrar la consulta");
+
+                if (statusConsulta.Consult_Facturada.Equals("POR FACTURAR")) return (0, "Esta consulta no se ha facturado!");
+
+                statusConsulta.Consult_Status = "PROCESADA";
+
+                await this.context_Mysql.SaveChangesAsync();
+
+                return (1, "Consulta procesada correctamente.");
+            }
+            catch ( Exception )
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Devuelve la cantidad de consultas de acuerdo al tipo recibido
+        /// </summary>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public int TotalConsultas(int tipo)
+        {
+            try
+            {
+                string[] tipoDeEstados = { "PROCESADA", "PENDIENTE", "CANCELADA" };
+
+                return this.context_Mysql.consultas.Count(x => x.Consult_Status.Equals(tipoDeEstados[tipo - 1]));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        /// <summary>
+        /// Devuelve la cantidad de consultas por facturar.
+        /// </summary>
+        /// <returns></returns>
+        public int TotalConsultasPorFacturar(int tipo)
+        {
+            try
+            {
+                string[] statusPago = { "POR FACTURAR", "FACTURADA" };
+
+                return this.context_Mysql.consultas.Count(x => x.Consult_Facturada.Equals
+                (statusPago[tipo-1]));
+            }
+            catch ( Exception )
+            {
+                throw;
+            }
+        }
+
     }
 }

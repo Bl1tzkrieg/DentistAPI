@@ -31,18 +31,33 @@ $(document).ready(function () {
         // peticion login
         const response = await fetch("/Acceso/Login", { ...requestOptions, method: "POST", body: data });
 
-        const credenciales = await response.json();
+        if (response.status === 200) {
+            $("#btnSubmit").html("Log In");
+            const { statuscode, message, data } = await response.json();
 
-        if (response.ok) {
-            $("#btnSubmit").html("Log In");
-            localStorage.setItem('user_id', credenciales.user_id);
-            // $("#btnSubmit").prop("disabled", false);
-            window.location.href = "/" + SelectRol(credenciales.rol) + "/Index";
-        } else {
-            $("#btnSubmit").html("Log In");
-            $("#btnSubmit").prop("disabled", false);
+            if (statuscode === 401 || statuscode === 500) {
+                $('#alertalogin').text(message);
+                $(".alert").show();
+                setTimeout(function () {
+                    $(".alert").hide();
+                    $("#btnSubmit").html("Ingresar");
+                    $("#btnSubmit").prop("disabled", false);
+                }, 2500);
+            }
+            else {
+                localStorage.setItem('user_id', data.user_id);
+                window.location.href = "/" + SelectRol(data.rol) + "/Index";
+            }
+         
+        }
+        else {
+            $('#alertalogin').text("Internal Server error 500");
             $(".alert").show();
-            setTimeout(function () { $(".alert").hide(); }, 3000);
+            setTimeout(function () {
+                $(".alert").hide();
+                $("#btnSubmit").html("Ingresar");
+                $("#btnSubmit").prop("disabled", false);
+            }, 2500);
         }
 
     })

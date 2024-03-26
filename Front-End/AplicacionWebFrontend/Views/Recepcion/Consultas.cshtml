@@ -13,7 +13,11 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbconsultas">
             <thead class="table-primary">
                 <tr>
@@ -37,19 +41,72 @@
                     <h3 class="modal-title" id="modalBuscarClienteLabel">Indique el numero de cedula del cliente</h3>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formularioBuscarCliente">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="identificacion" placeholder="Example V12345678">
+                            <select class="form-select w-25 d-inline" id="tipo_documento" required>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
+                            </select>
+                            <input type="text" class="form-control d-inline" id="identificacion" placeholder="Example 12345678" required>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Buscar Cliente</button>
+                            </div>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="buscarCli">Buscar Cliente</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para registro de nuevo cliente -->
+    <div class="modal fade" id="modalRegistroCliente" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalRegistroLabel">Registro cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioRegistroCliente">
+                        <div class="mb-3">
+                            <label for="cliente_documento">Documento</label>
+                            <input type="text" class="form-control" id="cliente_documento" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cliente_nombre1">Primer nombre</label>
+                            <input type="text" class="form-control" id="cliente_nombre1" required>
+                            <label for="cliente_nombre2">Segundo nombre</label>
+                            <input type="text" class="form-control" id="cliente_nombre2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cliente_apellido1">Primer apellido</label>
+                            <input type="text" class="form-control" id="cliente_apellido1" required>
+                            <label for="cliente_apellido2">Segundo apellido</label>
+                            <input type="text" class="form-control" id="cliente_apellido2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono">Teléfono</label>
+                            <select class="form-select w-25 d-inline" id="codigo_linea" required>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0416">0416</option>
+                                <option value="0424">0424</option>
+                                <option value="0426">0426</option>
+                            </select>
+                            <input type="text" class="form-control d-inline" id="telefono" placeholder="Example 1234567" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Modal de registor de consulta -->
     <div class="modal fade" id="modalRegistroConsulta" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
@@ -120,6 +177,16 @@
                                 <input type="text" class="form-control" id="estado" disabled>
                             </div>
                             <div class="col">
+                                <label for="estado_pago">Estado del pago</label>
+                                <input type="text" class="form-control" id="estado_pago" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="fecemi">Fecha de Emision</label>
+                                <input type="text" class="form-control" id="fecemi" disabled>
+                            </div>
+                            <div class="col">
                                 <label for="fecasig">Fecha de Consulta</label>
                                 <input type="text" class="form-control" id="fecasig" disabled>
                             </div>
@@ -129,18 +196,15 @@
                                 <label for="fecmod">Nueva fecha</label>
                                 <input type="date" class="form-control" id="fecmod" required>
                             </div>
-                            <div class="col">
-                                <label for="fecemi">Fecha de Emision</label>
-                                <input type="text" class="form-control" id="fecemi" disabled>
+                            <div class="form-floating mt-3">
+                                <textarea class="form-control" id="textAreaUpdateQuery" style="height: 100px; resize:none;"></textarea>
+                                <label for="textAreaUpdateQuery">Descripcion de la consulta</label>
                             </div>
                             <div class="col">
                                 <input type="hidden" value="" class="form-control" id="consulta_id">
                             </div>
                         </div>
-                        <div class="form-floating mt-3">
-                            <textarea class="form-control" id="textAreaUpdateQuery" style="height: 100px; resize:none;"></textarea>
-                            <label for="textAreaUpdateQuery">Descripcion de la consulta</label>
-                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Actualizar</button>

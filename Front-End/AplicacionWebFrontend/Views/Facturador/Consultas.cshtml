@@ -13,7 +13,26 @@
         </div>
     </header>
 
-    <div class="m-3 rounded-2 shadow p-3">
+    <div class="m-3 d-flex justify-content-around flex-wrap">
+        <div class="card m-3 text-center p-3 bg-warning bg-opacity-10 border border-warning rounded-end" style="width: 30rem;">
+            <div class="card-body">
+                <h3 class="card-title">Consultas Por Facturar</h3>
+                <h4 class="card-text" id="consultas_por_facturar">0</h4>
+            </div>
+        </div>
+        <div class="card m-3 text-center p-3 bg-success bg-opacity-10 border border-success rounded-end" style="width: 30rem;">
+            <div class="card-body">
+                <h3 class="card-title">Consultas Facturadas</h3>
+                <h4 class="card-text" id="consultas_facturadas">0</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger mx-3 text-center" role="alert" id="alerta_error" style="display:none;">
+        <h4 class="alert-heading">Ups, We have a problem Error 500!</h4>
+    </div>
+
+    <div class="m-3 rounded-2 shadow p-3" id="tabla">
         <table class="table table-striped compact responsive" cellspacing="0" style="width:100%" id="tbconsultas">
             <thead class="table-primary">
                 <tr>

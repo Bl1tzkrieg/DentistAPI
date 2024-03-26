@@ -25,7 +25,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> statusPedidos = await this.recursos_Pedidos.ObtenerPedidos();
 
-                return statusPedidos.Count > 0 ? Ok(statusPedidos) : NotFound(statusPedidos);
+                return Ok(statusPedidos);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Odontologia_Backend.Controllers
 
                 (int status, string message) = await this.recursos_Pedidos.RegistrarPedido(reqBody);
                 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? StatusCode(201) : BadRequest();
             }
             catch (Exception ex)
             {
@@ -80,11 +80,26 @@ namespace Odontologia_Backend.Controllers
 
                 (int status, string message) = await this.recursos_Pedidos.ActualizarPedido(reqBody);
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? Ok() : BadRequest();
             }
             catch ( Exception ex)
             {
                 return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpPatch("cancelar_pedido")]
+        public async Task<ActionResult> CancelarPedido([FromQuery] int v1) 
+        {
+            try
+            {
+                (int status, string message) = await this.recursos_Pedidos.CancelarPedido(v1);
+
+                return status > 0 ? Ok() : BadRequest();
+            }
+            catch ( Exception e )
+            {
+                return Problem(e.Message, default, 500);
             }
         }
 
@@ -100,11 +115,24 @@ namespace Odontologia_Backend.Controllers
 
                 (int status, string message) = await this.recursos_Pedidos.FacturarPedido(reqBody);
 
-                return status > 0 ? Ok(message) : BadRequest(message);
+                return status > 0 ? StatusCode(201) : BadRequest();
             }
             catch (Exception ex)
             {
                 return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpGet("obtener_cantidad_pedidos_por_estatus")]
+        public ActionResult ObtenerCantidadPedidosPorStatus([FromQuery] int v1) 
+        {
+            try
+            {
+                return Ok(this.recursos_Pedidos.ObtenerCantidadDeInsumosPorEstado(v1));
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message, default, 500);
             }
         }
     }

@@ -93,5 +93,29 @@ namespace Odontologia_Backend.Class
                 throw;
             }
         }
+
+        public int ObtenerComprasRealizadas()
+        {
+            try
+            {
+                return this.context_Mysql.compras.Count();
+            }
+            catch ( Exception )
+            {
+                throw;
+            }
+        }
+
+        public decimal ObtenerTotalGastos()
+        {
+            try
+            {
+                return this.context_Mysql.compras.Sum(x=> x.Comp_Total);
+            }
+            catch ( Exception ex )
+            {
+                throw;
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> customer = await this.recursos_Clientes.ObtenerClientes();
 
-                return customer.Count > 0 ? Ok(customer) : NotFound("La lista de clientes esta vacia");
+                return Ok(customer);
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace Odontologia_Backend.Controllers
             {
                 Object? statusCliente = await this.recursos_Clientes.ObtenerCliente(v1);
 
-                return statusCliente is not null ? Ok(statusCliente) : NotFound("cliente no encontrado");
+                return statusCliente is not null ? Ok(statusCliente) : NotFound();
             }
             catch (Exception ex)
             {
@@ -67,9 +67,10 @@ namespace Odontologia_Backend.Controllers
                     Cli_Nombre2 = cliente.nombre_2,
                     Cli_Apellido1 = cliente.apellido_1,
                     Cli_Apellido2 = cliente.apellido_2, 
+                    Cli_Telefono = cliente.telefono,
                 });
 
-                return statusRegistro > 0 ? Ok(message) : BadRequest(message);
+                return statusRegistro > 0 ? StatusCode(201) : BadRequest();
             }
             catch(Exception ex)
             {

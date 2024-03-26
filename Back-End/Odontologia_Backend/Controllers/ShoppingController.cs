@@ -27,7 +27,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeCompras = await this.recursos_Compras.ObtenerCompras();
 
-                return listaDeCompras.Count > 0 ? Ok(listaDeCompras) : NotFound(listaDeCompras);  
+                return Ok(listaDeCompras);  
             }
             catch (Exception ex)
             {
@@ -73,6 +73,44 @@ namespace Odontologia_Backend.Controllers
                 // Comentario luego de registrar una compra se debe actualizar el id del pedido asociado.
 
                 return status > 0 ? Ok(message) : BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        /// <summary>
+        /// Devuelve la cantidad de compras realizadas
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("obtener_cantidad_compras")]
+        public ActionResult ObtenerCantidadCompras()
+        {
+            try
+            {
+                int cantidadCompras = this.recursos_Compras.ObtenerComprasRealizadas();
+
+                return Ok(cantidadCompras);
+            }
+            catch ( Exception ex )
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        /// <summary>
+        /// Devuelve el total de todos los gastos en compras.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("obtener_total_gastos")]
+        public ActionResult ObtenerTotalGastos()
+        {
+            try
+            {
+                decimal cantidadCompras = this.recursos_Compras.ObtenerTotalGastos();
+
+                return Ok(cantidadCompras);
             }
             catch (Exception ex)
             {

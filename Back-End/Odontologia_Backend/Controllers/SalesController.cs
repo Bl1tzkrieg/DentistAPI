@@ -28,7 +28,7 @@ namespace Odontologia_Backend.Controllers
             {
                 List<Object> listaDeVentas = await this.recursos_Ventas.ObtenerVentas();
 
-                return listaDeVentas.Count > 0 ? Ok(listaDeVentas) : NotFound(listaDeVentas);
+                return Ok(listaDeVentas);
             }
             catch (Exception ex)
             {
@@ -81,14 +81,31 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPatch]
-        public async Task<ActionResult> PatchVentas()
+        [HttpGet("obtener_cantidad_ventas")]
+        public ActionResult ObtenerCantidadVentas()
         {
             try
             {
-                return Ok();
+                int cantidad_ventas = this.recursos_Ventas.ObtenerCantidadDeVentas();
+
+                return Ok(cantidad_ventas);
             }
-            catch (Exception ex)
+            catch ( Exception ex )
+            {
+                return Problem(ex.Message, default, 500);
+            }
+        }
+
+        [HttpGet("obtener_total_ingresos")]
+        public ActionResult ObtenerTotalIngresos()
+        {
+            try
+            {
+                decimal total = this.recursos_Ventas.ObtenerTotalIngresos();
+
+                return Ok(total);
+            }
+            catch ( Exception ex)
             {
                 return Problem(ex.Message, default, 500);
             }

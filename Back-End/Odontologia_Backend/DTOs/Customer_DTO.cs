@@ -7,5 +7,6 @@
         public string nombre_2 { get; set; }
         public string apellido_1 { get; set; }
         public string apellido_2 { get; set; }
+        public string telefono { get; set; }
     }
 }

@@ -9,7 +9,9 @@ const requestOptions = {
     },
 };
 
-$(document).ready(function () {
+$(document).ready(async function () {
+
+    $('#alerta_error').hide();
 
     tablaDeConsultasPorFacturar = crearTablaConsultas("#tbconsultas", 3);
 
@@ -32,18 +34,38 @@ $(document).ready(function () {
             tipo_pago,
         });
 
-        const response = await fetch("/Peticiones/FacturarConsulta",
+        const response = await fetch("https://localhost:7091/api/Querys/facturar_consulta",
             { ...requestOptions, method: "POST", body: data });
 
-        if (response.ok) {
-            const resp = await response.json();
+        if (response.status === 201) {
+            alert("La consulta ha sido facturada correctamente.");
             location.reload();
-            alert(resp);
+        }
+        else if (response.status === 400) {
+            alert("Eventualidad inesperada al intentar facturar la consulta.");
+            location.reload();
         }
         else {
-            alert(response.status);
+            alert("Error " + response.status);
+            location.reload();
         }
 
     })
 
+    $('#consultas_por_facturar').text(await obtenerConsultasFacturadas(1));
+
+    $('#consultas_facturadas').text(await obtenerConsultasFacturadas(2));
+
 })
+
+async function obtenerConsultasFacturadas(tipo) {
+    const response = await fetch("https://localhost:7091/api/Querys/obtener_consultas_por_facturar?v1=" + tipo,
+        { ...requestOptions, method: "GET" });
+
+    if (response.status === 200) {
+        const cantidadDeConsultasPorFacturar = await response.json();
+        return cantidadDeConsultasPorFacturar;
+    }
+
+    return 0;
+}
