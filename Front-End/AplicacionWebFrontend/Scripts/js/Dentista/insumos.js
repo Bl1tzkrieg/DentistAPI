@@ -32,7 +32,7 @@ $(document).ready(function () {
             { ...requestOptions, method: "POST", body: data });
 
         if (response.status === 201) {
-            alert("Pedido pegistrado con exito!")
+            alert("Pedido registrado con exito!")
             location.reload();
         }
         else if (response.status === 400) {

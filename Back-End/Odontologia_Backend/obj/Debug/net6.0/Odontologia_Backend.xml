@@ -156,6 +156,196 @@
             <param name="user">Credenciales</param>
             <returns></returns>
         </member>
+        <member name="M:Odontologia_Backend.Controllers.CustomersController.GetClientes">
+            <summary>
+            Devuelve todos los clientes registrados que han solicitado un servicio.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.CustomersController.GetCliente(System.String)">
+            <summary>
+            Devuelve un cliente con el numero de documento ingresado.
+            </summary>
+            <param name="v1">Numero de documento</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.CustomersController.PostCliente(Odontologia_Backend.DTOs.Customer_DTO)">
+            <summary>
+            Registra un nuevo cliente.
+            </summary>
+            <param name="cliente"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.EmployeesController.GetEmpleado(System.String)">
+            <summary>
+            Devuelve informacion especifica de un empleado.
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.EmployeesController.PostEmpleado(Odontologia_Backend.DTOs.Employee_DTO)">
+            <summary>
+            Registra un nuevo empleado.
+            </summary>
+            <param name="empleado"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.GetPedidos">
+            <summary>
+            Obtiene todos los pedidos.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.GetPedido(System.Int32)">
+            <summary>
+            Obtiene un pedido.
+            </summary>
+            <param name="v1">pedido id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.PostPedidos(Odontologia_Backend.DTOs.Order_DTO)">
+            <summary>
+            Registra un pedido.
+            </summary>
+            <param name="reqBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.PatchPedido(Odontologia_Backend.DTOs.OrderUpdate_DTO)">
+            <summary>
+            Actualiza un pedido.
+            </summary>
+            <param name="reqBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.CancelarPedido(System.Int32)">
+            <summary>
+            Cancela un pedido
+            </summary>
+            <param name="v1">pedido id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.FacturarPedido(Odontologia_Backend.DTOs.Invoice_Order_DTO)">
+            <summary>
+            Factura un pedido.
+            </summary>
+            <param name="reqBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.OrdersController.ObtenerCantidadPedidosPorStatus(System.Int32)">
+            <summary>
+            Obtiene la cantidad de pedidos segun el tipo de estatus.
+            </summary>
+            <param name="v1">tipo estatus 1:FACTURADO - 2:CANCELADO</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.GetConsultas(System.Int32)">
+            <summary>
+            Devuelve todas las consultas.
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.GetConsulta(System.Int32)">
+            <summary>
+            Devuelve una consulta especifica.
+            </summary>
+            <param name="v1">consulta id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.PostConsulta(Odontologia_Backend.DTOs.Query_DTO)">
+            <summary>
+            Registra una consulta.
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.PatchConsulta(Odontologia_Backend.DTOs.QueryUpdate_DTO)">
+            <summary>
+            Actualiza una consulta.
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.ProcesarConsulta(System.Int32)">
+            <summary>
+            Marca una consulta como procesada.
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.CancelarConsulta(System.Int32)">
+            <summary>
+            Cancela una consulta.
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.Facturar_Consulta(Odontologia_Backend.DTOs.Query_Bill_Consultation_DTO)">
+            <summary>
+            Factura una consulta.
+            </summary>
+            <param name="reqBody"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.GetTotal_Consultas(System.Int32)">
+            <summary>
+            Obtiene la cantidad de consulta de acuerdo con el tipo especificado
+            </summary>
+            <param name="v1"> status 1:PROCESADA 2:PENDIENTE 3:CANCELADA</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.QuerysController.GetConsultasPorFacturar(System.Int32)">
+            <summary>
+            Obtiene la cantidad de consultas de acuerdo al status ingresado
+            </summary>
+            <param name="v1">status 1:POR FACTURAR 2:FACTURADA</param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.SalesController.GetVentas">
+            <summary>
+            Obtiene todas las ventas.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.SalesController.GetVenta(System.Int32)">
+            <summary>
+            Devuelve una venta.
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.SalesController.PostVentas(Odontologia_Backend.DTOs.Sale_DTO)">
+            <summary>
+            Registra una venta.
+            </summary>
+            <param name="sale"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.SalesController.ObtenerCantidadVentas">
+            <summary>
+            Devuelve la cantidad de ventas realizadas.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.SalesController.ObtenerTotalIngresos">
+            <summary>
+            Devuelve el total de ingresos de todas las ventas realizadas.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.ShoppingController.GetCompras">
+            <summary>
+            Devuelve todas las compras.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.ShoppingController.GetCompra(System.Int32)">
+            <summary>
+            Devuelve los detalles de una compra
+            </summary>
+            <param name="v1">compra id</param>
+            <returns></returns>
+        </member>
         <member name="M:Odontologia_Backend.Controllers.ShoppingController.PostCompra(Odontologia_Backend.DTOs.Buys_DTO)">
             <summary>
             Registra una compra asociada
@@ -173,6 +363,27 @@
             <summary>
             Devuelve el total de todos los gastos en compras.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.UsersController.GetUsuario(System.Int32)">
+            <summary>
+            Obtiene los detalles de un usuario
+            </summary>
+            <param name="v1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.UsersController.PostUsuario(Odontologia_Backend.DTOs.User_DTO)">
+            <summary>
+            Registra un nuevo usuario.
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Odontologia_Backend.Controllers.UsersController.PatchUsuario(Odontologia_Backend.DTOs.UserUpdate_DTO)">
+            <summary>
+            Actualiza la informacion de un usuario.
+            </summary>
+            <param name="user"></param>
             <returns></returns>
         </member>
         <member name="M:Odontologia_Backend.Helper.Encryptar.HashPassword(System.String)">

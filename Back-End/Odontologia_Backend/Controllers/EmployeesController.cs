@@ -20,7 +20,11 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Empleados = new HandlerEmployees(dbMysql);
         }
 
-
+        /// <summary>
+        /// Devuelve informacion especifica de un empleado.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpGet("obtener_empleado")]
         public async Task<ActionResult> GetEmpleado([FromQuery] string v1 )
         {
@@ -42,6 +46,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra un nuevo empleado.
+        /// </summary>
+        /// <param name="empleado"></param>
+        /// <returns></returns>
         [HttpPost("registrar_empleado")]
         public async Task<ActionResult> PostEmpleado([FromBody] Employee_DTO empleado)
         {

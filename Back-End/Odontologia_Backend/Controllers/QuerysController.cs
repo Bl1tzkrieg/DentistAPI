@@ -20,6 +20,11 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Consultas = new HandlerQuerys(dbMysql);
         }
 
+        /// <summary>
+        /// Devuelve todas las consultas.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpGet("obtener_consultas")]
         public async Task<ActionResult> GetConsultas([FromQuery] int v1 = 1 )
         {
@@ -35,6 +40,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve una consulta especifica.
+        /// </summary>
+        /// <param name="v1">consulta id</param>
+        /// <returns></returns>
         [HttpGet("obtener_consulta")]
         public async Task<ActionResult> GetConsulta([FromQuery] int v1)
         {
@@ -51,6 +61,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra una consulta.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("registrar_consulta")]
         public async Task<ActionResult> PostConsulta(Query_DTO query)
         {
@@ -80,6 +95,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Actualiza una consulta.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPatch("actualizar_consulta")]
         public async Task<ActionResult> PatchConsulta(QueryUpdate_DTO query)
         {
@@ -104,6 +124,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Marca una consulta como procesada.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpPatch("procesar_consulta")]
         public async Task<ActionResult> ProcesarConsulta([FromQuery] int v1)
         {
@@ -119,6 +144,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Cancela una consulta.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpPatch("cancelar_consulta")]
         public async Task<ActionResult> CancelarConsulta([FromQuery] int v1)
         {
@@ -134,6 +164,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Factura una consulta.
+        /// </summary>
+        /// <param name="reqBody"></param>
+        /// <returns></returns>
         [HttpPost("facturar_consulta")]
         public async Task<ActionResult> Facturar_Consulta([FromBody] Query_Bill_Consultation_DTO reqBody )
         {
@@ -154,6 +189,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene la cantidad de consulta de acuerdo con el tipo especificado
+        /// </summary>
+        /// <param name="v1"> status 1:PROCESADA 2:PENDIENTE 3:CANCELADA</param>
+        /// <returns></returns>
         [HttpGet("obtener_total_consultas_por_tipo")]
         public async Task<ActionResult> GetTotal_Consultas([FromQuery] int v1)
         {
@@ -169,6 +209,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene la cantidad de consultas de acuerdo al status ingresado
+        /// </summary>
+        /// <param name="v1">status 1:POR FACTURAR 2:FACTURADA</param>
+        /// <returns></returns>
         [HttpGet("obtener_consultas_por_facturar")]
         public ActionResult GetConsultasPorFacturar([FromQuery] int v1)
         {

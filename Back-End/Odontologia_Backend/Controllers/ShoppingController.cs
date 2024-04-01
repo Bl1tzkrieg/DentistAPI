@@ -20,6 +20,10 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Compras = new HandlerShopping(dbMysql);
         }
 
+        /// <summary>
+        /// Devuelve todas las compras.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_compras")]
         public async Task<ActionResult> GetCompras()
         {
@@ -35,6 +39,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve los detalles de una compra
+        /// </summary>
+        /// <param name="v1">compra id</param>
+        /// <returns></returns>
         [HttpGet("obtener_compra")]
         public async Task<ActionResult> GetCompra([FromQuery] int v1 = -1 )
         {

@@ -20,6 +20,10 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Clientes = new HandlerCustomer(dbMysql);
         }
 
+        /// <summary>
+        /// Devuelve todos los clientes registrados que han solicitado un servicio.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_clientes")]
         public async Task<ActionResult> GetClientes()
         {
@@ -35,6 +39,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve un cliente con el numero de documento ingresado.
+        /// </summary>
+        /// <param name="v1">Numero de documento</param>
+        /// <returns></returns>
         [HttpGet("obtener_cliente")]
         public async Task<ActionResult> GetCliente([FromQuery] string v1)
         {
@@ -50,6 +59,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra un nuevo cliente.
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
         [HttpPost("registrar_cliente")]
         public async Task<ActionResult> PostCliente(Customer_DTO cliente )
         {
@@ -78,17 +92,5 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
-        [HttpPatch("actualizar_cliente")]
-        public async Task<ActionResult> PatchCliente(Customer_DTO cliente)
-        {
-            try
-            {
-                return Ok();
-            }
-            catch ( Exception ex )
-            {
-                return Problem(ex.Message, default, 500);
-            }
-        }
     }
 }

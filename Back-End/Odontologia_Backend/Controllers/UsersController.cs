@@ -20,6 +20,11 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Usuarios = new HandlerUsers(dbMysql);
         }
 
+        /// <summary>
+        /// Obtiene los detalles de un usuario
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpGet("obtener_usuario")]
         public async Task<ActionResult> GetUsuario([FromQuery] int v1 = -1 )
         {
@@ -35,6 +40,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra un nuevo usuario.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("registrar_usuario")]
         public async Task<ActionResult> PostUsuario([FromBody] User_DTO user)
         {
@@ -47,7 +57,7 @@ namespace Odontologia_Backend.Controllers
 
                 (int statusRegistro, string message) = await this.recursos_Usuarios.RegistrarUsuario( user );
 
-                return statusRegistro > 0 ? StatusCode(201) : BadRequest();
+                return statusRegistro > 0 ? StatusCode(201) : BadRequest(message);
             }
             catch (Exception ex)
             {
@@ -55,6 +65,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Actualiza la informacion de un usuario.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPatch("actualizar_usuario")]
         public async Task<ActionResult> PatchUsuario([FromBody] UserUpdate_DTO user)
         {

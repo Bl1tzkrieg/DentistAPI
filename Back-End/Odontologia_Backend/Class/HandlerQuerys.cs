@@ -281,7 +281,7 @@ namespace Odontologia_Backend.Class
                 string[] statusPago = { "POR FACTURAR", "FACTURADA" };
 
                 return this.context_Mysql.consultas.Count(x => x.Consult_Facturada.Equals
-                (statusPago[tipo-1]));
+                (statusPago[tipo-1]) && ( x.Consult_Status.Equals("PENDIENTE") || x.Consult_Status.Equals("PROCESADA")));
             }
             catch ( Exception )
             {

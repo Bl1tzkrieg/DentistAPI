@@ -45,11 +45,11 @@
                                 <option value="V">V</option>
                                 <option value="E">E</option>
                             </select>
-                            <input type="text" class="form-control d-inline" id="identificacion" placeholder="Example 12345678" required>
+                            <input type="text" maxlength="8" class="form-control d-inline" id="identificacion" placeholder="Example 12345678" required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Buscar Empleado</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btn-register_cancel_user">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="btn-register_user" disabled>Buscar Empleado</button>
                         </div>
                     </form>
                 </div>

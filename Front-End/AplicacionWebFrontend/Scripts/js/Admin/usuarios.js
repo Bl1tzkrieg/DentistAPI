@@ -1,4 +1,5 @@
 ﻿let tabla_de_usuarios;
+let patron = /^[0-9]{7,8}$/;
 
 const requestOptions = {
     method: "",
@@ -14,10 +15,23 @@ $(document).ready(function () {
 
     tabla_de_usuarios = crearTablaUsuarios("#tbusuarios");
 
+    $('#identificacion').blur(function () {
+        let valor = $(this).val();
+
+        if (!patron.test(valor)) {
+            $("#btn-register_user").prop("disabled", true);
+            $(this).addClass('border border-danger-subtle');
+            alert("El campo debe contener 7 a 8 dígitos numéricos.")
+        } else {
+            $(this).removeClass('border border-danger-subtle').addClass('border border-success');
+            $("#btn-register_user").prop("disabled", false);
+        }
+    });
+
     $('#formularioBuscarEmpleado').submit(function (e) {
         e.preventDefault();
-        let documento =  ( $('#tipo_documento').val() + $('#identificacion').val() )
-        buscarEmpleado( documento );
+        let documento = ($('#tipo_documento').val() + $('#identificacion').val())
+        buscarEmpleado(documento);
     });
 
     $("#formularioRegistro").submit(async function (event) {
@@ -46,7 +60,7 @@ $(document).ready(function () {
             location.reload();
         }
         else if (response.status === 400) {
-            alert("Eventualidad inesperada al intentar registrar el usuario.");
+            alert("El empleado ya tiene usuario asignado o el nombre de usuario ya existe.");
             location.reload();
         }
         else {
@@ -139,6 +153,12 @@ $(document).ready(function () {
             alert('Error ' + response.status);
             location.reload();
         }
+    });
+
+    $('#btn-register_cancel_user').click(function () {
+        clearModal1();
+        $('#identificacion').removeClass('border border-danger-subtle');
+        $('#identificacion').removeClass('border border-success');
     });
 
 }); // fin

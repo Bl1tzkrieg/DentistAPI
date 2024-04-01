@@ -21,6 +21,10 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Ventas = new HandlerSales(dbMysql);
         }
 
+        /// <summary>
+        /// Obtiene todas las ventas.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_ventas")]
         public async Task<ActionResult> GetVentas()
         {
@@ -36,6 +40,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve una venta.
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         [HttpGet("obtener_venta")]
         public async Task<ActionResult> GetVenta([FromQuery] int v1 = -1 )
         {
@@ -53,6 +62,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra una venta.
+        /// </summary>
+        /// <param name="sale"></param>
+        /// <returns></returns>
         [HttpPost("registrar_venta")]
         public async Task<ActionResult> PostVentas([FromBody] Sale_DTO sale)
         {
@@ -81,6 +95,10 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve la cantidad de ventas realizadas.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_cantidad_ventas")]
         public ActionResult ObtenerCantidadVentas()
         {
@@ -96,6 +114,10 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Devuelve el total de ingresos de todas las ventas realizadas.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_total_ingresos")]
         public ActionResult ObtenerTotalIngresos()
         {

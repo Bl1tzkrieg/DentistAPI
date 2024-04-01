@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 using Odontologia_Backend.Class;
 using Odontologia_Backend.Data;
 using Odontologia_Backend.DTOs;
@@ -18,6 +19,10 @@ namespace Odontologia_Backend.Controllers
             this.recursos_Pedidos = new HandlerOrders(dbMysql);
         }
 
+        /// <summary>
+        /// Obtiene todos los pedidos.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("obtener_pedidos")]
         public async Task<ActionResult> GetPedidos()
         {
@@ -33,11 +38,18 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene un pedido.
+        /// </summary>
+        /// <param name="v1">pedido id</param>
+        /// <returns></returns>
         [HttpGet("obtener_pedido")]
-        public async Task<ActionResult> GetPedido([FromQuery] int v1)
+        public async Task<ActionResult> GetPedido([FromQuery] int v1 = -1)
         {
             try
             {
+                if (v1 < 1) return BadRequest();
+
                 Object? statusPedido = await this.recursos_Pedidos.ObtenerPedido(v1);
 
                 return statusPedido is not null ? Ok(statusPedido) : NotFound(); 
@@ -48,6 +60,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Registra un pedido.
+        /// </summary>
+        /// <param name="reqBody"></param>
+        /// <returns></returns>
         [HttpPost("registrar_pedido")]
         public async Task<ActionResult> PostPedidos([FromBody] Order_DTO reqBody )
         {
@@ -68,6 +85,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Actualiza un pedido.
+        /// </summary>
+        /// <param name="reqBody"></param>
+        /// <returns></returns>
         [HttpPatch("actualizar_pedido")]
         public async Task<ActionResult> PatchPedido([FromBody] OrderUpdate_DTO reqBody)
         {
@@ -88,6 +110,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Cancela un pedido
+        /// </summary>
+        /// <param name="v1">pedido id</param>
+        /// <returns></returns>
         [HttpPatch("cancelar_pedido")]
         public async Task<ActionResult> CancelarPedido([FromQuery] int v1) 
         {
@@ -103,6 +130,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Factura un pedido.
+        /// </summary>
+        /// <param name="reqBody"></param>
+        /// <returns></returns>
         [HttpPost("facturar_pedido")]
         public async Task<ActionResult> FacturarPedido([FromBody] Invoice_Order_DTO reqBody)
         {
@@ -123,6 +155,11 @@ namespace Odontologia_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtiene la cantidad de pedidos segun el tipo de estatus.
+        /// </summary>
+        /// <param name="v1">tipo estatus 1:FACTURADO - 2:CANCELADO</param>
+        /// <returns></returns>
         [HttpGet("obtener_cantidad_pedidos_por_estatus")]
         public ActionResult ObtenerCantidadPedidosPorStatus([FromQuery] int v1) 
         {
